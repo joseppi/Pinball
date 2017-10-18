@@ -25,10 +25,10 @@ bool ModuleSceneIntro::Start()
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
-	circle = App->textures->Load("pinball/wheel.png"); 
-	box = App->textures->Load("pinball/crate.png");
-	rick = App->textures->Load("pinball/rick_head.png");
-	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
+	//circle = App->textures->Load("pinball/wheel.png"); 
+	//box = App->textures->Load("pinball/crate.png");
+	rick = App->textures->Load("pinball/PINBALL.png");
+	//bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
 
@@ -67,7 +67,7 @@ update_status ModuleSceneIntro::Update()
 	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 	{
 		// Pivot 0, 0
-		int rick_head[64] = {
+		/*int rick_head[64] = {
 			14, 36,
 			42, 40,
 			40, 0,
@@ -100,9 +100,52 @@ update_status ModuleSceneIntro::Update()
 			29, 90,
 			0, 75,
 			30, 62
+		};*/
+		// Pivot 0, 0
+		int rick_head[80] = {
+			661, 1023,
+			661, 664,
+			642, 664,
+			642, 876,
+			635, 897,
+			618, 922,
+			589, 950,
+			558, 970,
+			515, 993,
+			431, 1021,
+			432, 1135,
+			344, 1135,
+			344, 1021,
+			255, 992,
+			142, 940,
+			107, 912,
+			81, 882,
+			62, 838,
+			60, 487,
+			164, 398,
+			118, 338,
+			100, 291,
+			92, 265,
+			86, 174,
+			100, 126,
+			134, 84,
+			166, 63,
+			208, 53,
+			574, 52,
+			624, 65,
+			675, 107,
+			690, 132,
+			709, 202,
+			708, 1025,
+			725, 1025,
+			725, 1,
+			41, 1,
+			40, 1025,
+			341, 1184,
+			435, 1186
 		};
 
-		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64));
+		ricks.add(App->physics->CreateChain(0, 0, rick_head, 81));
 	}
 
 	// Prepare for raycast ------------------------------------------------------

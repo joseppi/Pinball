@@ -33,7 +33,7 @@ bool ModulePhysics::Start()
 
 	// needed to create joints like mouse joint
 	b2BodyDef bd;
-	ground = world->CreateBody(&bd);
+	//ground = world->CreateBody(&bd);
 
 	// big static circle as "ground" in the middle of the screen
 	int x = SCREEN_WIDTH / 2;
@@ -47,11 +47,11 @@ bool ModulePhysics::Start()
 	b2Body* big_ball = world->CreateBody(&body);
 
 	b2CircleShape shape;
-	shape.m_radius = PIXEL_TO_METERS(diameter) * 0.5f;
+	//shape.m_radius = PIXEL_TO_METERS(diameter) * 0.5f; //Big background circle
 
 	b2FixtureDef fixture;
-	fixture.shape = &shape;
-	big_ball->CreateFixture(&fixture);
+	//fixture.shape = &shape;
+	//big_ball->CreateFixture(&fixture);
 
 	return true;
 }
@@ -164,8 +164,8 @@ PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size)
 
 	for(uint i = 0; i < size / 2; ++i)
 	{
-		p[i].x = PIXEL_TO_METERS(points[i * 2 + 0]);
-		p[i].y = PIXEL_TO_METERS(points[i * 2 + 1]);
+		p[i].x = VPIXEL_PER_METERS(points[i * 2 + 0]);
+		p[i].y = VPIXEL_PER_METERS(points[i * 2 + 1]);
 	}
 
 	shape.CreateLoop(p, size / 2);
