@@ -22,6 +22,7 @@ public:
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> pinballs;
 
+	PhysBody* ball_propeller;
 	PhysBody* sensor;
 	bool sensed;
 
