@@ -198,6 +198,7 @@ update_status ModulePhysics::PostUpdate()
 	// You need to provide your own macro to translate meters to pixels
 	b2Vec2 mouse = { PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS (App->input->GetMouseY())};
 	b2Body* body_found = NULL;
+	b2Body* body_delete = NULL;
 	for(b2Body* b = world->GetBodyList(); b; b = b->GetNext())
 	{
 		for(b2Fixture* f = b->GetFixtureList(); f; f = f->GetNext())
@@ -207,9 +208,15 @@ update_status ModulePhysics::PostUpdate()
 				// Draw circles ------------------------------------------------
 				case b2Shape::e_circle:
 				{
+
 					b2CircleShape* shape = (b2CircleShape*)f->GetShape();
 					b2Vec2 pos = f->GetBody()->GetPosition();
+					if (pos.y >= 10)
+					{
+						body_delete = b;
+					}
 					App->renderer->DrawCircle(METERS_TO_PIXELS(pos.x), METERS_TO_PIXELS(pos.y), METERS_TO_PIXELS(shape->m_radius), 255, 255, 255);
+					
 				}
 				break;
 
@@ -277,13 +284,20 @@ update_status ModulePhysics::PostUpdate()
 				
 			}
 			// test if the current body contains mouse position
+			
 		}
 	}
+	//if (body_delete != nullptr)
+	//{
+	//	world->DestroyBody(body_delete);
+	//	body_delete = nullptr;
+	//}
 
 	// If a body was selected we will attach a mouse joint to it
 	// so we can pull it around
 	// TODO 2: If a body was selected, create a mouse joint
 	// using mouse_joint class property
+	
 	if (body_found && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
 		b2MouseJointDef def;
@@ -310,7 +324,7 @@ update_status ModulePhysics::PostUpdate()
 		world->DestroyJoint(mouse_joint);
 		mouse_joint = NULL;
 	}
-
+	
 	return UPDATE_CONTINUE;
 }
 
