@@ -25,13 +25,12 @@ bool ModuleSceneIntro::Start()
 	bool ret = true;
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
-
-	circle = App->textures->Load("pinball/Ball.png"); 
 	//box = App->textures->Load("pinball/crate.png");
 	structure = App->textures->Load("pinball/Pinball_No_Margins.png");
 	//bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
+	circle = App->textures->Load("pinball/Ball.png");
 
-	//sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
+	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
 	ball_propeller = App->physics->CreateKinematicRectangle(1221, 990, 45, 130);
 
 	return ret;
@@ -128,14 +127,16 @@ update_status ModuleSceneIntro::Update()
 	fVector normal(0.0f, 0.0f);
 
 	// All draw functions ------------------------------------------------------
-	p2List_item<PhysBody*>* c = circles.getFirst();
+	p2List_item<PhysBody*>* c = pinballs.getFirst();
 
-	while(c != NULL)
+	SDL_Rect rect;
+
+	while (c != NULL)
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
-		if(c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()))
-			App->renderer->Blit(circle, x, y, NULL, 2.0f, c->data->GetRotation());
+
+		App->renderer->Blit(structure, x, y, NULL, 1.0f, c->data->GetRotation());
 		c = c->next;
 	}
 
@@ -155,17 +156,14 @@ update_status ModuleSceneIntro::Update()
 		c = c->next;
 	}
 
-	c = pinballs.getFirst();
+	c = circles.getFirst();
 
-	SDL_Rect rect;
-
-
-	while(c != NULL)
+	while (c != NULL)
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
-
-		App->renderer->Blit(structure, x, y, NULL, 1.0f, c->data->GetRotation());
+		if (c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()))
+			App->renderer->Blit(circle, x, y, NULL, 2.0f, c->data->GetRotation());
 		c = c->next;
 	}
 
