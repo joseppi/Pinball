@@ -160,7 +160,7 @@ update_status ModuleSceneIntro::Update()
 
 	while (c != NULL)
 	{
-		int x, y;
+		int x, y; 
 		c->data->GetPosition(x, y);
 		if (c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()))
 			App->renderer->Blit(circle, x, y, NULL, 2.0f, c->data->GetRotation());
