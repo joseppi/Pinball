@@ -89,6 +89,30 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
 	fixture.density = 1.0f;
+	b->CreateFixture(&fixture);
+
+	PhysBody* pbody = new PhysBody();
+	pbody->body = b;
+	b->SetUserData(pbody); //for collisions
+	b->GetContactList();
+	pbody->width = pbody->height = radius;
+
+	return pbody;
+}
+
+PhysBody* ModulePhysics::CreateStaticCircle(int x, int y, int radius)
+{
+	b2BodyDef body;
+	body.type = b2_staticBody;
+	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+
+	b2Body* b = world->CreateBody(&body);
+
+	b2CircleShape shape;
+	shape.m_radius = PIXEL_TO_METERS(radius);
+	b2FixtureDef fixture;
+	fixture.shape = &shape;
+	fixture.density = 1.0f;
 
 	b->CreateFixture(&fixture);
 
@@ -163,6 +187,33 @@ PhysBody* ModulePhysics::CreateSpringRectangle(int x, int y, int width, int heig
 	/*def.localAxisA(1); //?
 	def.referenceAngle; //?*/
 	//prismatic_joint = (b2PrismaticJoint*)world->CreateJoint(&def);	
+
+	return pbody;
+}
+PhysBody* ModulePhysics::CreateCircleSensor(int x, int y, int radius)
+{
+	b2BodyDef body;
+	body.type = b2_staticBody;
+	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+
+	b2Body* b = world->CreateBody(&body);
+
+	b2CircleShape shape;
+	shape.m_radius = PIXEL_TO_METERS(radius);
+
+	b2FixtureDef fixture;
+	fixture.shape = &shape;
+	fixture.density = 1.0f;
+	fixture.isSensor = true;
+	fixture.filter.categoryBits;
+		fixture.filter.maskBits;
+
+	b->CreateFixture(&fixture);
+
+	PhysBody* pbody = new PhysBody();
+	pbody->body = b;
+	b->SetUserData(pbody);
+	pbody->width = pbody->height = radius;
 
 	return pbody;
 }
@@ -258,7 +309,7 @@ update_status ModulePhysics::PostUpdate()
 					{
 						body_delete = b;
 					}*/
-					App->renderer->DrawCircle(METERS_TO_PIXELS(pos.x), METERS_TO_PIXELS(pos.y), METERS_TO_PIXELS(shape->m_radius), 255, 255, 255);
+					App->renderer->DrawCircle(METERS_TO_PIXELS(pos.x), METERS_TO_PIXELS(pos.y), METERS_TO_PIXELS(shape->m_radius), 255, 128, 0);
 					
 				}
 				break;
@@ -335,6 +386,7 @@ update_status ModulePhysics::PostUpdate()
 	//	world->DestroyBody(body_delete);
 	//	body_delete = nullptr;
 	//}
+
 
 	// If a body was selected we will attach a mouse joint to it
 	// so we can pull it around
