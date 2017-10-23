@@ -26,6 +26,7 @@ public:
 	//Bumpers
 	p2List<PhysBody*> pops_circular;
 	p2List<PhysBody*> pops_triangle;
+	p2List<PhysBody*> pops_square;
 
 	PhysBody* ball_propeller;
 	PhysBody* sensor;
