@@ -21,6 +21,7 @@ public:
 	p2List<PhysBody*> circles;
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> pinballs;
+	p2List<PhysBody*> walls;
 	p2List<PhysBody*> sensors;
 
 	//Bumpers

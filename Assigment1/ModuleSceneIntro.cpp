@@ -115,14 +115,54 @@ update_status ModuleSceneIntro::Update()
 		601, 855,
 		601, 667
 	};
-
 	pinballs.add(App->physics->CreateChain(SCREEN_WIDTH/2, 55, pinball, 83));
+
+	//Walls
+	int Wall1[32] = {
+		3, 165,
+		3, 7,
+		7, 3,
+		31, 3,
+		34, 7,
+		33, 126,
+		40, 145,
+		55, 163,
+		75, 180,
+		126, 214,
+		118, 217,
+		112, 228,
+		111, 237,
+		113, 244,
+		110, 245,
+		6, 169
+	};
+	pops_triangle.add(App->physics->CreateChain(570, 722, Wall1, 33));
+	int Wall2[32] = {
+		41, 11,
+		44, 7,
+		66, 7,
+		70, 11,
+		70, 172,
+		26, 215,
+		24, 214,
+		25, 204,
+		20, 192,
+		12, 186,
+		5, 186,
+		20, 173,
+		31, 160,
+		39, 147,
+		41, 133,
+		41, 21
+	};
+	pops_triangle.add(App->physics->CreateChain(1007, 751, Wall2, 33));
 
 	//Bumpers
 	//Cricles
 	pops_circular.add(App->physics->CreateStaticCircle(724, 350, 45));
 	pops_circular.add(App->physics->CreateStaticCircle(985, 371, 45));
 	pops_circular.add(App->physics->CreateStaticCircle(854, 564, 45));
+
 	//Triangles
 	int Tri1[64] = {
 		269, 66,
@@ -159,7 +199,6 @@ update_status ModuleSceneIntro::Update()
 		253, 68
 	};
 	pops_triangle.add(App->physics->CreateChain(702, 159, Tri1, 65));
-
 	int Tri2[16] = {
 		78, 84,
 		34, 21,
@@ -171,7 +210,6 @@ update_status ModuleSceneIntro::Update()
 		79, 91
 	};
 	pops_triangle.add(App->physics->CreateChain(985, 480, Tri2, 17));
-
 	int Tri3[16] = {
 		9, 96,
 		36, 21,
@@ -183,6 +221,7 @@ update_status ModuleSceneIntro::Update()
 		12, 101
 	};
 	pops_triangle.add(App->physics->CreateChain(627, 710, Tri3, 17));
+
 	//Square
 	int Sqr[32] = {
 		22, 91,
@@ -202,7 +241,7 @@ update_status ModuleSceneIntro::Update()
 		43, 99,
 		32, 108
 	};
-	pops_triangle.add(App->physics->CreateChain(536, 445, Sqr, 33));
+	pops_square.add(App->physics->CreateChain(536, 445, Sqr, 33));
 
 	// Prepare for raycast ------------------------------------------------------
 	iPoint mouse;
