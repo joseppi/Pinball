@@ -23,6 +23,10 @@ public:
 	p2List<PhysBody*> pinballs;
 	p2List<PhysBody*> sensors;
 
+	//Bumpers
+	p2List<PhysBody*> pops_circular;
+	p2List<PhysBody*> pops_triangle;
+
 	PhysBody* ball_propeller;
 	PhysBody* sensor;
 	bool sensed;

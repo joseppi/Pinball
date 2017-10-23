@@ -116,9 +116,13 @@ update_status ModuleSceneIntro::Update()
 		601, 667
 	};
 
-
-
 	pinballs.add(App->physics->CreateChain(SCREEN_WIDTH/2, 55, pinball, 83));
+
+	//Bumpers
+	pops_circular.add(App->physics->CreateStaticCircle(724, 350, 45));
+	pops_circular.add(App->physics->CreateStaticCircle(985, 371, 45));
+	pops_circular.add(App->physics->CreateStaticCircle(854, 564, 45));
+
 	// Prepare for raycast ------------------------------------------------------
 	
 	iPoint mouse;
