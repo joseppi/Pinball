@@ -31,7 +31,7 @@ bool ModuleSceneIntro::Start()
 	circle = App->textures->Load("pinball/Ball.png");
 
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
-	ball_propeller = App->physics->CreateKinematicRectangle(1221, 990, 45, 130);
+	spring = App->physics->CreateSpringRectangle(1156, 990, 45, 130);
 
 	return ret;
 }

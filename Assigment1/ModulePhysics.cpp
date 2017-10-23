@@ -3,6 +3,7 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModulePhysics.h"
+#include "ModuleSceneIntro.h"
 #include "p2Point.h"
 #include "math.h"
 
@@ -124,7 +125,7 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateKinematicRectangle(int x, int y, int width, int height)
+PhysBody* ModulePhysics::CreateSpringRectangle(int x, int y, int width, int height)
 {
 	b2BodyDef body;
 	body.type = b2_kinematicBody;
@@ -145,6 +146,23 @@ PhysBody* ModulePhysics::CreateKinematicRectangle(int x, int y, int width, int h
 	b->SetUserData(pbody);
 	pbody->width = width * 0.5f;
 	pbody->height = height * 0.5f;
+
+	/*PhysBody* pbody2 = new PhysBody();
+	pbody->body = b;
+	b->SetUserData(pbody);
+	pbody->width = width * 0.5f;
+	pbody->height = height * 0.5f;
+	//
+	b2PrismaticJointDef def;
+	def.bodyA = App->scene_intro->spring->body;
+	def.bodyB = App->scene_intro->spring2->body;
+	def.collideConnected = false;
+	def.enableLimit = true;
+	def.upperTranslation = PIXEL_TO_METERS(100);
+	def.lowerTranslation = PIXEL_TO_METERS(-100);*/
+	/*def.localAxisA(1); //?
+	def.referenceAngle; //?*/
+	//prismatic_joint = (b2PrismaticJoint*)world->CreateJoint(&def);	
 
 	return pbody;
 }
@@ -323,7 +341,7 @@ update_status ModulePhysics::PostUpdate()
 	// TODO 2: If a body was selected, create a mouse joint
 	// using mouse_joint class property
 	
-	if (body_found && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
+	/*if (body_found && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
 		b2MouseJointDef def;
 		def.bodyA = ground;
@@ -334,21 +352,21 @@ update_status ModulePhysics::PostUpdate()
 		def.maxForce = 100.0f * body_found->GetMass();
 		mouse_joint = (b2MouseJoint*)world->CreateJoint(&def);
 
-	}
+	}*/
 
 	// TODO 3: If the player keeps pressing the mouse button, update
 	// target position and draw a red line between both anchor points
-	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && mouse_joint != NULL)
+	/*if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && mouse_joint != NULL)
 	{
 		mouse_joint->SetTarget(mouse);
-	}
+	}*/
 
 	// TODO 4: If the player releases the mouse button, destroy the joint
-	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP && mouse_joint != NULL)
+	/*if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP && mouse_joint != NULL)
 	{
 		world->DestroyJoint(mouse_joint);
 		mouse_joint = NULL;
-	}
+	}*/
 	
 	return UPDATE_CONTINUE;
 }
