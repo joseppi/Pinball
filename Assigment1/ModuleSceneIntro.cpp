@@ -10,7 +10,7 @@
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	circle = box = rick = NULL;
+	circle = box = structure = NULL;
 	ray_on = false;
 	sensed = false;
 }
@@ -28,7 +28,7 @@ bool ModuleSceneIntro::Start()
 
 	circle = App->textures->Load("pinball/Ball.png"); 
 	//box = App->textures->Load("pinball/crate.png");
-	rick = App->textures->Load("pinball/PINBALL.png");
+	structure = App->textures->Load("pinball/Pinball_No_Margins.png");
 	//bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
 	//sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
@@ -71,50 +71,53 @@ update_status ModuleSceneIntro::Update()
 		circles.clear();
 	}
 	// Draw pinball -------------------------------------------------------------
-	int pinball[80] = {
-		661, 1023,
-		661, 664,
-		642, 664,
-		642, 876,
-		635, 897,
-		618, 922,
-		589, 950,
-		558, 970,
-		515, 993,
-		431, 1021,
-		432, 1135,
-		344, 1135,
-		344, 1021,
-		255, 992,
-		142, 940,
-		107, 912,
-		81, 882,
-		62, 838,
-		60, 487,
-		164, 398,
-		118, 338,
-		100, 291,
-		92, 265,
-		86, 174,
-		100, 126,
-		134, 84,
-		166, 63,
-		208, 53,
-		574, 52,
-		624, 65,
-		675, 107,
-		690, 132,
-		709, 202,
-		708, 1025,
-		725, 1025,
-		725, 1,
-		41, 1,
-		40, 1025,
-		341, 1184,
-		435, 1186
+	int pinball[82] = {
+		620, 665,
+		620, 1286,
+		668, 1285,
+		664, 202,
+		657, 161,
+		637, 120,
+		607, 89,
+		565, 64,
+		530, 55,
+		190, 55,
+		167, 56,
+		134, 65,
+		103, 83,
+		80, 105,
+		61, 134,
+		53, 170,
+		51, 206,
+		55, 259,
+		69, 304,
+		88, 345,
+		130, 400,
+		24, 483,
+		24, 825,
+		31, 860,
+		41, 882,
+		59, 906,
+		84, 927,
+		135, 956,
+		299, 1023,
+		299, 1047,
+		5, 1045,
+		5, 1455,
+		614, 1455,
+		612, 1047,
+		390, 1045,
+		388, 1025,
+		504, 980,
+		570, 932,
+		596, 895,
+		601, 855,
+		601, 667
 	};
 
-	pinballs.add(App->physics->CreateChain(SCREEN_WIDTH/2, 0, pinball, 81));
+
+
+	pinballs.add(App->physics->CreateChain(SCREEN_WIDTH/2, 55, pinball, 83));
 	// Prepare for raycast ------------------------------------------------------
 	
 	iPoint mouse;
@@ -162,7 +165,7 @@ update_status ModuleSceneIntro::Update()
 		int x, y;
 		c->data->GetPosition(x, y);
 
-		App->renderer->Blit(rick, x, y, NULL, 1.0f, c->data->GetRotation());
+		App->renderer->Blit(structure, x, y, NULL, 1.0f, c->data->GetRotation());
 		c = c->next;
 	}
 
