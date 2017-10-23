@@ -26,10 +26,12 @@ bool ModuleSceneIntro::Start()
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 	//box = App->textures->Load("pinball/crate.png");
-	structure = App->textures->Load("pinball/Pinball_No_Margins.png");
 	//bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
+	structure = App->textures->Load("pinball/Pinball_No_Margins.png");
 	circle = App->textures->Load("pinball/Ball.png");
-
+	texture_sensor = App->textures->Load("pinball/sensor_red.png");
+	
+	sensors.add(App->physics->CreateCircleSensor(1000, 800, 16));
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
 	ball_propeller = App->physics->CreateKinematicRectangle(1221, 990, 45, 130);
 
@@ -167,6 +169,18 @@ update_status ModuleSceneIntro::Update()
 		c = c->next;
 	}
 
+	c = sensors.getFirst();
+
+	while (c != NULL)
+	{
+		int x, y;
+		c->data->GetPosition(x, y);
+		if (c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()))
+		{
+			App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+		}
+		c = c->next;
+	}
 	// ray -----------------
 	if(ray_on == true)
 	{

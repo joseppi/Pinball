@@ -30,6 +30,7 @@ public:
 	SDL_Texture* circle;
 	SDL_Texture* box;
 	SDL_Texture* structure;
+	SDL_Texture* texture_sensor;
 	uint bonus_fx;
 	p2Point<int> ray;
 	bool ray_on;
