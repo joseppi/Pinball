@@ -88,12 +88,12 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
 	fixture.density = 1.0f;
-
 	b->CreateFixture(&fixture);
 
 	PhysBody* pbody = new PhysBody();
 	pbody->body = b;
-	b->SetUserData(pbody);
+	b->SetUserData(pbody); //for collisions
+	b->GetContactList();
 	pbody->width = pbody->height = radius;
 
 	return pbody;
@@ -182,9 +182,13 @@ PhysBody* ModulePhysics::CreateCircleSensor(int x, int y, int radius)
 
 	b2CircleShape shape;
 	shape.m_radius = PIXEL_TO_METERS(radius);
+
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
 	fixture.density = 1.0f;
+	fixture.isSensor = true;
+	fixture.filter.categoryBits;
+		fixture.filter.maskBits;
 
 	b->CreateFixture(&fixture);
 
@@ -365,11 +369,6 @@ update_status ModulePhysics::PostUpdate()
 	//	body_delete = nullptr;
 	//}
 
-	// If a body was selected we will attach a mouse joint to it
-	// so we can pull it around
-	// TODO 2: If a body was selected, create a mouse joint
-	// using mouse_joint class property
-	
 	if (body_found && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
 		b2MouseJointDef def;
