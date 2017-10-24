@@ -36,6 +36,10 @@ bool ModuleSceneIntro::Start()
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
 	App->player->setSpring();	
 	
+	//Draw Ball
+	circles.add(App->physics->CreateCircle(1150, 800, 16));
+	circles.getLast()->data->listener = this;
+
 	// Draw pinball -------------------------------------------------------------
 	int pinball[82] = {
 		620, 665,
@@ -229,11 +233,11 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 16));
-		circles.getLast()->data->listener = this;
-	}
+	//if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	//{
+	//	circles.add(App->physics->CreateCircle(1150, 800, 16));
+	//	circles.getLast()->data->listener = this;
+	//}
 
 	if(App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 	{
@@ -289,7 +293,13 @@ update_status ModuleSceneIntro::Update()
 	{
 		int x, y; 
 		c->data->GetPosition(x, y);
-		//if (c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()))
+		//b2Vec2 position(1150.0f, 800.0f);
+		b2Vec2 position(23.1f, 16.9f);
+		b2Vec2 positionm(App->input->GetMouseX(), App->input->GetMouseY());
+		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		{
+			c->data->body->SetTransform(position, 0);
+		}
 		App->renderer->Blit(circle, x, y, NULL, 2.0f, c->data->GetRotation());
 		c = c->next;
 	}
