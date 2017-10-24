@@ -212,8 +212,35 @@ bool ModuleSceneIntro::Start()
 	pops_square.add(App->physics->CreateChain(536, 445, Sqr, 33));
 
 	//Flipper --------------------------
-	flipper.add(App->physics->CreateStaticCircle(1000, 965, 15));
-	flipper.add(App->physics->CreateRectangle(800, 500, 100, 20));
+
+	int Flipper[44] = {
+		1, 27,
+		1, 42,
+		5, 103,
+		7, 139,
+		9, 146,
+		13, 152,
+		20, 157,
+		27, 157,
+		35, 152,
+		38, 145,
+		40, 136,
+		42, 85,
+		44, 43,
+		44, 27,
+		42, 16,
+		40, 9,
+		34, 4,
+		26, 0,
+		19, 1,
+		13, 4,
+		6, 10,
+		3, 19
+	};
+
+	/*flipper.add(App->physics->CreateStaticCircle(1000, 965, 15));
+	flipper.add(App->physics->CreateRectangle(800, 500, 100, 20));*/
+	App->player->setLeftFlipper(Flipper);
 
 	return ret;
 }

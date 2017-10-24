@@ -15,6 +15,8 @@ public:
 	bool CleanUp();
 
 	void setSpring();
+	void setLeftFlipper(int* flipper);
+	void setRightFlipper();
 
 public:
 
@@ -22,7 +24,9 @@ public:
 private:
 	PhysBody* spring;
 	PhysBody* spring_pivot;
-
+	PhysBody* flipper_pivot_left;
+	PhysBody* flipper_left;
+	
 	b2PrismaticJoint* prismatic_joint;
-
+	b2RevoluteJoint* revolute_joint_left;
 };
