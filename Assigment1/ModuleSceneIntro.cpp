@@ -34,7 +34,12 @@ bool ModuleSceneIntro::Start()
 	
 	sensors.add(App->physics->CreateCircleSensor(1000, 800, 16));
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
-	
+
+	//Sensors
+	sensors.add(App->physics->CreateCircleSensor(855, 825, 16, 0));
+	sensors.add(App->physics->CreateCircleSensor(855, 868, 16, 0));
+	sensors.add(App->physics->CreateCircleSensor(855, 909, 16, 0));
+
 	//Draw Ball
 	circles.add(App->physics->CreateCircle(1150, 800, 16, b2_dynamicBody));
 	circles.getLast()->data->listener = this;
@@ -292,14 +297,15 @@ update_status ModuleSceneIntro::Update()
 		int x, y; 
 		c->data->GetPosition(x, y);
 		//b2Vec2 position(1150.0f, 800.0f);
-		b2Vec2 position(23.1f, 16.9f);
-		b2Vec2 positionm(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
+		
 		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
+			b2Vec2 position(23.1f, 16.9f);
 			c->data->body->SetTransform(position, 0);
 		}
 		if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 		{
+			b2Vec2 positionm(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
 			c->data->body->SetTransform(positionm, 0);
 			c->data->body->IsActive();
 		}
@@ -313,12 +319,21 @@ update_status ModuleSceneIntro::Update()
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
-		if (c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()))
+		if (c->data->body->IsAwake() == false)
 		{
 			App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
 		}
+		if (c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()) && c->data->body->IsAwake())
+		{
+			
+			c->data->body->SetAwake(false);
+		
+		}
+
 		c = c->next;
 	}
+
+	
 	// ray -----------------
 	if(ray_on == true)
 	{
@@ -344,7 +359,7 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	if(bodyA)
 	{
 		bodyA->GetPosition(x, y);
-		App->renderer->DrawCircle(x, y, 50, 100, 100, 100);
+		App->renderer->DrawCircle(x, y, 50, 200, 100, 100);
 	}
 
 	if(bodyB)
