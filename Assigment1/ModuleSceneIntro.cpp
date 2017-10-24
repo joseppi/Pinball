@@ -241,7 +241,7 @@ update_status ModuleSceneIntro::Update()
 
 	if(App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 	{
-		boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50, b2_dynamicBody));
+		//boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50, b2_dynamicBody));
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
@@ -295,10 +295,15 @@ update_status ModuleSceneIntro::Update()
 		c->data->GetPosition(x, y);
 		//b2Vec2 position(1150.0f, 800.0f);
 		b2Vec2 position(23.1f, 16.9f);
-		b2Vec2 positionm(App->input->GetMouseX(), App->input->GetMouseY());
+		b2Vec2 positionm(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
 		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
 			c->data->body->SetTransform(position, 0);
+		}
+		if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+		{
+			c->data->body->SetTransform(positionm, 0);
+			c->data->body->IsActive();
 		}
 		App->renderer->Blit(circle, x, y, NULL, 2.0f, c->data->GetRotation());
 		c = c->next;
