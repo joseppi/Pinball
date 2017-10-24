@@ -29,6 +29,8 @@ public:
 	p2List<PhysBody*> pops_triangle;
 	p2List<PhysBody*> pops_square;
 
+	p2List<PhysBody*> flipper;
+
 	PhysBody* spring;
 	PhysBody* spring2;
 

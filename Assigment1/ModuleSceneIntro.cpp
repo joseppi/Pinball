@@ -34,49 +34,8 @@ bool ModuleSceneIntro::Start()
 	
 	sensors.add(App->physics->CreateCircleSensor(1000, 800, 16));
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
-	App->player->setSpring();
-
-	return ret;
-}
-
-// Load assets
-bool ModuleSceneIntro::CleanUp()
-{
-	LOG("Unloading Intro scene");
-
-	return true;
-}
-
-// Update: draw background
-update_status ModuleSceneIntro::Update()
-{
-	/*if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-		ray_on = !ray_on;
-		ray.x = App->input->GetMouseX();
-		ray.y = App->input->GetMouseY();
-	}*/
-
-	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 22));
-		circles.getLast()->data->listener = this;
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-	{
-		boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50));
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-	{
-		circles.clear();
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
-	{
-		//App->physics->
-	}
+	App->player->setSpring();	
+	
 	// Draw pinball -------------------------------------------------------------
 	int pinball[82] = {
 		620, 665,
@@ -121,7 +80,7 @@ update_status ModuleSceneIntro::Update()
 		601, 855,
 		601, 667
 	};
-	pinballs.add(App->physics->CreateChain(SCREEN_WIDTH/2, 55, pinball, 83));
+	pinballs.add(App->physics->CreateChain(SCREEN_WIDTH / 2, 55, pinball, 83));
 
 	//Walls
 	int Wall1[32] = {
@@ -142,7 +101,8 @@ update_status ModuleSceneIntro::Update()
 		110, 245,
 		6, 169
 	};
-	pops_triangle.add(App->physics->CreateChain(570, 722, Wall1, 33));
+	pops_triangle.add(App->physics->CreateChain(569, 722, Wall1, 33));
+
 	int Wall2[32] = {
 		41, 11,
 		44, 7,
@@ -163,7 +123,7 @@ update_status ModuleSceneIntro::Update()
 	};
 	pops_triangle.add(App->physics->CreateChain(1007, 751, Wall2, 33));
 
-	//Bumpers
+	//Bumpers -------------------------
 	//Cricles
 	pops_circular.add(App->physics->CreateStaticCircle(724, 350, 45));
 	pops_circular.add(App->physics->CreateStaticCircle(985, 371, 45));
@@ -205,6 +165,7 @@ update_status ModuleSceneIntro::Update()
 		253, 68
 	};
 	pops_triangle.add(App->physics->CreateChain(702, 159, Tri1, 65));
+
 	int Tri2[16] = {
 		78, 84,
 		34, 21,
@@ -216,6 +177,7 @@ update_status ModuleSceneIntro::Update()
 		79, 91
 	};
 	pops_triangle.add(App->physics->CreateChain(985, 480, Tri2, 17));
+
 	int Tri3[16] = {
 		9, 96,
 		36, 21,
@@ -248,6 +210,40 @@ update_status ModuleSceneIntro::Update()
 		32, 108
 	};
 	pops_square.add(App->physics->CreateChain(536, 445, Sqr, 33));
+
+	//Flipper --------------------------
+	flipper.add(App->physics->CreateStaticCircle(1000, 965, 15));
+	flipper.add(App->physics->CreateRectangle(800, 500, 100, 20));
+
+	return ret;
+}
+
+// Load assets
+bool ModuleSceneIntro::CleanUp()
+{
+	LOG("Unloading Intro scene");
+
+	return true;
+}
+
+// Update: draw background
+update_status ModuleSceneIntro::Update()
+{
+	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	{
+		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 16));
+		circles.getLast()->data->listener = this;
+	}
+
+	if(App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+	{
+		boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50));
+	}
+
+	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+	{
+		circles.clear();
+	}
 
 	// Prepare for raycast ------------------------------------------------------
 	iPoint mouse;
@@ -332,7 +328,6 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 	App->audio->PlayFx(bonus_fx);
 
-	/*
 	if(bodyA)
 	{
 		bodyA->GetPosition(x, y);
@@ -343,5 +338,5 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	{
 		bodyB->GetPosition(x, y);
 		App->renderer->DrawCircle(x, y, 50, 100, 100, 100);
-	}*/
+	}
 }

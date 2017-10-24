@@ -37,9 +37,9 @@ update_status ModulePlayer::Update()
 	{
 		prismatic_joint->EnableMotor(true);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 	{
-		prismatic_joint->EnableMotor(false);
+   		prismatic_joint->EnableMotor(false);
 	}
 
 	return UPDATE_CONTINUE;
@@ -48,8 +48,8 @@ update_status ModulePlayer::Update()
 void ModulePlayer::setSpring()
 
 {
-	spring = App->physics->CreateRectangle(1156, 700, 43, 100, b2_dynamicBody);
-	spring_pivot = App->physics->CreateRectangle(1156, 900, 43, 30, b2_staticBody);
+	spring = App->physics->CreateRectangle(1156, 700, 41, 100, b2_dynamicBody);
+	spring_pivot = App->physics->CreateRectangle(1156, 900, 41, 30, b2_staticBody);
 
 	b2PrismaticJointDef def;
 
