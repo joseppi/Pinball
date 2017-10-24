@@ -48,8 +48,8 @@ update_status ModulePlayer::Update()
 void ModulePlayer::setSpring()
 
 {
-	spring = App->physics->CreateRectangle(1156, 700, 41, 100, b2_dynamicBody);
-	spring_pivot = App->physics->CreateRectangle(1156, 900, 41, 30, b2_staticBody);
+	spring = App->physics->CreateRectangle(1156, 800, 41, 100, b2_dynamicBody);
+	spring_pivot = App->physics->CreateRectangle(1156, 980, 41, 30, b2_staticBody);
 
 	b2PrismaticJointDef def;
 
@@ -66,8 +66,8 @@ void ModulePlayer::setSpring()
 	def.upperTranslation = PIXEL_TO_METERS(100);
 	def.lowerTranslation = 0;
 	def.enableMotor = false;
-	def.motorSpeed = 200;
-	def.maxMotorForce = 5000;
+	def.motorSpeed = 50;
+	def.maxMotorForce = 1000;
 
 	prismatic_joint = (b2PrismaticJoint*)App->physics->world->CreateJoint(&def);
 }
