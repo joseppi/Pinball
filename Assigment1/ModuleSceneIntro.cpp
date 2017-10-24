@@ -108,7 +108,7 @@ bool ModuleSceneIntro::Start()
 		122, 355,
 		14, 276
 	};
-	pops_triangle.add(App->physics->CreateChain(560, 615, Wall1, 33, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(559, 615, Wall1, 33, b2_staticBody));
 
 	int Wall2[32] = {
 		41, 11,
