@@ -32,8 +32,7 @@ bool ModuleSceneIntro::Start()
 	circle = App->textures->Load("pinball/Ball.png");
 	texture_sensor = App->textures->Load("pinball/sensor_red.png");
 	
-	sensors.add(App->physics->CreateCircleSensor(1000, 800, 16, 0));
-	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
+	//sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
 
 	//Sensors
 	sensors.add(App->physics->CreateCircleSensor(855, 825, 16, 0));
@@ -289,6 +288,25 @@ update_status ModuleSceneIntro::Update()
 		}
 		c = c->next;
 	}
+	c = sensors.getFirst();
+
+	while (c != NULL)
+	{
+		int x, y;
+		c->data->GetPosition(x, y);
+		if (c->data->body->IsAwake() == false)
+		{
+			App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+		}
+		if (c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()) && c->data->body->IsAwake())
+		{
+
+			c->data->body->SetAwake(false);
+
+		}
+
+		c = c->next;
+	}
 
 	c = circles.getFirst();
 
@@ -296,8 +314,6 @@ update_status ModuleSceneIntro::Update()
 	{
 		int x, y; 
 		c->data->GetPosition(x, y);
-		//b2Vec2 position(1150.0f, 800.0f);
-		
 		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
 			b2Vec2 position(23.1f, 16.9f);
@@ -313,27 +329,6 @@ update_status ModuleSceneIntro::Update()
 		c = c->next;
 	}
 
-	c = sensors.getFirst();
-
-	while (c != NULL)
-	{
-		int x, y;
-		c->data->GetPosition(x, y);
-		if (c->data->body->IsAwake() == false)
-		{
-			App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
-		}
-		if (c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()) && c->data->body->IsAwake())
-		{
-			
-			c->data->body->SetAwake(false);
-		
-		}
-
-		c = c->next;
-	}
-
-	
 	// ray -----------------
 	if(ray_on == true)
 	{
@@ -358,6 +353,7 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 	if(bodyA)
 	{
+		b2Vec2 positionm(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
 		bodyA->GetPosition(x, y);
 		App->renderer->DrawCircle(x, y, 50, 200, 100, 100);
 	}
