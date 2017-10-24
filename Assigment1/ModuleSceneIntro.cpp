@@ -32,7 +32,7 @@ bool ModuleSceneIntro::Start()
 	circle = App->textures->Load("pinball/Ball.png");
 	texture_sensor = App->textures->Load("pinball/sensor_red.png");
 	
-	sensors.add(App->physics->CreateCircleSensor(1000, 800, 16));
+	sensors.add(App->physics->CreateCircleSensor(1000, 800, 16, 0));
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
 
 	//Sensors
