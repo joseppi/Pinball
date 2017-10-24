@@ -34,7 +34,6 @@ bool ModuleSceneIntro::Start()
 	
 	sensors.add(App->physics->CreateCircleSensor(1000, 800, 16));
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
-	App->player->setSpring();	
 	
 	//Draw Ball
 	circles.add(App->physics->CreateCircle(1150, 800, 16, b2_dynamicBody));
@@ -216,36 +215,8 @@ bool ModuleSceneIntro::Start()
 	pops_square.add(App->physics->CreateChain(536, 445, Sqr, 33, b2_staticBody));
 
 	//Flipper --------------------------
-
-	int Flipper[44] = {
-		1, 27,
-		1, 42,
-		5, 103,
-		7, 139,
-		9, 146,
-		13, 152,
-		20, 157,
-		27, 157,
-		35, 152,
-		38, 145,
-		40, 136,
-		42, 85,
-		44, 43,
-		44, 27,
-		42, 16,
-		40, 9,
-		34, 4,
-		26, 0,
-		19, 1,
-		13, 4,
-		6, 10,
-		3, 19
-	};
-
-	/*flipper.add(App->physics->CreateStaticCircle(1000, 965, 15));
-	flipper.add(App->physics->CreateRectangle(800, 500, 100, 20));*/
-	App->player->setLeftFlipper(Flipper);
-
+	
+	
 	return ret;
 }
 

@@ -14,19 +14,26 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	iPoint position;
+
+private:
 	void setSpring();
-	void setLeftFlipper(int* flipper);
+	void setLeftFlipper();
 	void setRightFlipper();
 
 public:
-
+	//SDL_Texture* tx_flipper_left;
+	//SDL_Texture* tx_flipper_right;
 
 private:
 	PhysBody* spring;
 	PhysBody* spring_pivot;
-	PhysBody* flipper_pivot_left;
 	PhysBody* flipper_left;
-	
+	PhysBody* flipper_pivot_left;
+	PhysBody* flipper_right;
+	PhysBody* flipper_pivot_right;
+
 	b2PrismaticJoint* prismatic_joint;
 	b2RevoluteJoint* revolute_joint_left;
+	b2RevoluteJoint* revolute_joint_right;
 };
