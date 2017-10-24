@@ -28,5 +28,5 @@ enum update_status
 #define WIN_RESIZABLE false
 #define WIN_BORDERLESS false
 #define WIN_FULLSCREEN_DESKTOP true
-#define VSYNC false
+#define VSYNC true
 #define TITLE "2D Physics Playground"
