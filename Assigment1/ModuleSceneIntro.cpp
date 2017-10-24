@@ -36,51 +36,55 @@ bool ModuleSceneIntro::Start()
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
 	App->player->setSpring();	
 	
+	//Draw Ball
+	circles.add(App->physics->CreateCircle(1150, 800, 16, b2_dynamicBody));
+	circles.getLast()->data->listener = this;
+
 	// Draw pinball -------------------------------------------------------------
 	int pinball[82] = {
 		620, 665,
 		620, 1286,
-		668, 1285,
-		664, 202,
-		657, 161,
-		637, 120,
-		607, 89,
-		565, 64,
-		530, 55,
-		190, 55,
-		167, 56,
-		134, 65,
+		666, 1286,
+		666, 203,
+		655, 161,
+		636, 122,
+		606, 90,
+		565, 66,
+		529, 57,
+		183, 57,
+		159, 60,
+		132, 67,
 		103, 83,
 		80, 105,
 		61, 134,
 		53, 170,
 		51, 206,
-		55, 259,
+		56, 260,
 		69, 304,
 		88, 345,
-		130, 400,
-		24, 483,
-		24, 825,
+		129, 401,
+		24, 487,
+		24, 831,
 		31, 860,
 		41, 882,
-		59, 906,
-		84, 927,
-		135, 956,
-		299, 1023,
-		299, 1047,
-		5, 1045,
+		65, 912,
+		100, 938,
+		155, 966,
+		300, 1021,
+		300, 1047,
+		5, 1047,
 		5, 1455,
-		614, 1455,
+		612, 1455,
 		612, 1047,
-		390, 1045,
-		388, 1025,
-		504, 980,
-		570, 932,
-		596, 895,
-		601, 855,
-		601, 667
+		384, 1047,
+		384, 1021,
+		504, 975,
+		566, 931,
+		588, 904,
+		598, 873,
+		598, 665
 	};
-	pinballs.add(App->physics->CreateChain(SCREEN_WIDTH / 2, 55, pinball, 83));
+	pinballs.add(App->physics->CreateChain(SCREEN_WIDTH / 2, 55, pinball, 83, b2_staticBody));
 
 	//Walls
 	int Wall1[32] = {
@@ -101,7 +105,7 @@ bool ModuleSceneIntro::Start()
 		110, 245,
 		6, 169
 	};
-	pops_triangle.add(App->physics->CreateChain(569, 722, Wall1, 33));
+	pops_triangle.add(App->physics->CreateChain(569, 722, Wall1, 33, b2_staticBody));
 
 	int Wall2[32] = {
 		41, 11,
@@ -121,13 +125,13 @@ bool ModuleSceneIntro::Start()
 		41, 133,
 		41, 21
 	};
-	pops_triangle.add(App->physics->CreateChain(1007, 751, Wall2, 33));
+	pops_triangle.add(App->physics->CreateChain(1006, 751, Wall2, 33, b2_staticBody));
 
 	//Bumpers -------------------------
 	//Cricles
-	pops_circular.add(App->physics->CreateStaticCircle(724, 350, 45));
-	pops_circular.add(App->physics->CreateStaticCircle(985, 371, 45));
-	pops_circular.add(App->physics->CreateStaticCircle(854, 564, 45));
+	pops_circular.add(App->physics->CreateCircle(724, 350, 45, b2_staticBody));
+	pops_circular.add(App->physics->CreateCircle(985, 371, 45, b2_staticBody));
+	pops_circular.add(App->physics->CreateCircle(854, 564, 45, b2_staticBody));
 
 	//Triangles
 	int Tri1[64] = {
@@ -142,29 +146,29 @@ bool ModuleSceneIntro::Start()
 		31, 68,
 		27, 91,
 		44, 91,
-		40, 68,
-		71, 68,
+		52, 68,
+		60, 68,
 		68, 90,
 		83, 90,
-		80, 68,
-		115, 68,
+		94, 68,
+		101, 68,
 		112, 90,
 		128, 90,
-		125, 68,
-		158, 68,
+		137, 68,
+		147, 68,
 		156, 90,
 		172, 90,
-		168, 68,
-		200, 68,
+		180, 68,
+		188, 68,
 		197, 91,
 		214, 91,
-		211, 68,
-		243, 68,
+		220, 68,
+		233, 68,
 		240, 91,
 		256, 91,
 		253, 68
 	};
-	pops_triangle.add(App->physics->CreateChain(702, 159, Tri1, 65));
+	pops_triangle.add(App->physics->CreateChain(702, 159, Tri1, 65, b2_staticBody));
 
 	int Tri2[16] = {
 		78, 84,
@@ -176,7 +180,7 @@ bool ModuleSceneIntro::Start()
 		36, 154,
 		79, 91
 	};
-	pops_triangle.add(App->physics->CreateChain(985, 480, Tri2, 17));
+	pops_triangle.add(App->physics->CreateChain(985, 480, Tri2, 17, b2_staticBody));
 
 	int Tri3[16] = {
 		9, 96,
@@ -188,7 +192,7 @@ bool ModuleSceneIntro::Start()
 		72, 152,
 		12, 101
 	};
-	pops_triangle.add(App->physics->CreateChain(627, 710, Tri3, 17));
+	pops_triangle.add(App->physics->CreateChain(627, 710, Tri3, 17, b2_staticBody));
 
 	//Square
 	int Sqr[32] = {
@@ -200,16 +204,16 @@ bool ModuleSceneIntro::Start()
 		105, 22,
 		120, 36,
 		108, 46,
-		97, 28,
-		68, 52,
+		87, 36,
+		77, 44,
 		82, 66,
 		69, 77,
-		59, 60,
-		30, 84,
+		48, 68,
+		39, 76,
 		43, 99,
 		32, 108
 	};
-	pops_square.add(App->physics->CreateChain(536, 445, Sqr, 33));
+	pops_square.add(App->physics->CreateChain(536, 445, Sqr, 33, b2_staticBody));
 
 	//Flipper --------------------------
 
@@ -256,15 +260,15 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 16));
-		circles.getLast()->data->listener = this;
-	}
+	//if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	//{
+	//	circles.add(App->physics->CreateCircle(1150, 800, 16, b2_dynamicBody));
+	//	circles.getLast()->data->listener = this;
+	//}
 
 	if(App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 	{
-		boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50));
+		//boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50, b2_dynamicBody));
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
@@ -316,7 +320,18 @@ update_status ModuleSceneIntro::Update()
 	{
 		int x, y; 
 		c->data->GetPosition(x, y);
-		//if (c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()))
+		//b2Vec2 position(1150.0f, 800.0f);
+		b2Vec2 position(23.1f, 16.9f);
+		b2Vec2 positionm(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
+		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		{
+			c->data->body->SetTransform(position, 0);
+		}
+		if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+		{
+			c->data->body->SetTransform(positionm, 0);
+			c->data->body->IsActive();
+		}
 		App->renderer->Blit(circle, x, y, NULL, 2.0f, c->data->GetRotation());
 		c = c->next;
 	}

@@ -68,14 +68,14 @@ void ModulePlayer::setSpring()
 
 	PrismDef.collideConnected = true;
 	PrismDef.localAxisA.Set(0, 1);
-
+	
 	PrismDef.enableLimit = true;
 	PrismDef.upperTranslation = PIXEL_TO_METERS(100);
 	PrismDef.lowerTranslation = 0;
 	PrismDef.enableMotor = false;
 	PrismDef.motorSpeed = 50;
-	PrismDef.maxMotorForce = 1000;
-
+	PrismDef.maxMotorForce = 3000;
+	
 	prismatic_joint = (b2PrismaticJoint*)App->physics->world->CreateJoint(&PrismDef);
 }
 
@@ -83,7 +83,7 @@ void ModulePlayer::setLeftFlipper(int* flipper)
 {
 	//flipper_left = App->physics->CreateRectangle(839, 955, 100, 20, b2_staticBody);
 	flipper_left = App->physics->CreateChain(780, 740, flipper, 45, b2_dynamicBody);
-	flipper_pivot_left = App->physics->CreateStaticCircle(800, 756, 10);
+	flipper_pivot_left = App->physics->CreateCircle(800, 756, 10, b2_staticBody);
 
 	b2RevoluteJointDef revDef;
 
