@@ -124,10 +124,11 @@ PhysBody* ModulePhysics::CreateStaticCircle(int x, int y, int radius)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)
+PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, b2BodyType type)
 {
 	b2BodyDef body;
-	body.type = b2_dynamicBody;
+	
+	body.type = type;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 
 	b2Body* b = world->CreateBody(&body);
@@ -149,47 +150,6 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateSpringRectangle(int x, int y, int width, int height)
-{
-	b2BodyDef body;
-	body.type = b2_kinematicBody;
-	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
-
-	b2Body* b = world->CreateBody(&body);
-	b2PolygonShape box;
-	box.SetAsBox(PIXEL_TO_METERS(width) * 0.5f, PIXEL_TO_METERS(height) * 0.5f);
-
-	b2FixtureDef fixture;
-	fixture.shape = &box;
-	fixture.density = 1.0f;
-
-	b->CreateFixture(&fixture);
-
-	PhysBody* pbody = new PhysBody();
-	pbody->body = b;
-	b->SetUserData(pbody);
-	pbody->width = width * 0.5f;
-	pbody->height = height * 0.5f;
-
-	/*PhysBody* pbody2 = new PhysBody();
-	pbody->body = b;
-	b->SetUserData(pbody);
-	pbody->width = width * 0.5f;
-	pbody->height = height * 0.5f;
-	//
-	b2PrismaticJointDef def;
-	def.bodyA = App->scene_intro->spring->body;
-	def.bodyB = App->scene_intro->spring2->body;
-	def.collideConnected = false;
-	def.enableLimit = true;
-	def.upperTranslation = PIXEL_TO_METERS(100);
-	def.lowerTranslation = PIXEL_TO_METERS(-100);*/
-	/*def.localAxisA(1); //?
-	def.referenceAngle; //?*/
-	//prismatic_joint = (b2PrismaticJoint*)world->CreateJoint(&def);	
-
-	return pbody;
-}
 PhysBody* ModulePhysics::CreateCircleSensor(int x, int y, int radius)
 {
 	b2BodyDef body;
