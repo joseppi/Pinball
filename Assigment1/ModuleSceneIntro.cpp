@@ -45,7 +45,7 @@ bool ModuleSceneIntro::Start()
 
 	// Draw pinball -------------------------------------------------------------
 	int pinball[82] = {
-		620, 665,
+		620, 241,
 		620, 1286,
 		666, 1286,
 		666, 203,
@@ -85,30 +85,30 @@ bool ModuleSceneIntro::Start()
 		566, 931,
 		588, 904,
 		598, 873,
-		598, 665
+		598, 241
 	};
 	pinballs.add(App->physics->CreateChain(SCREEN_WIDTH / 2, 55, pinball, 83, b2_staticBody));
 
 	//Walls
 	int Wall1[32] = {
-		3, 165,
-		3, 7,
-		7, 3,
-		31, 3,
-		34, 7,
-		33, 126,
-		40, 145,
-		55, 163,
-		75, 180,
-		126, 214,
-		118, 217,
-		112, 228,
-		111, 237,
-		113, 244,
-		110, 245,
-		6, 169
+		14, 267,
+		14, 30,
+		16, 24,
+		41, 24,
+		44, 30,
+		44, 234,
+		50, 252,
+		63, 267,
+		79, 283,
+		136, 321,
+		129, 324,
+		124, 333,
+		121, 344,
+		125, 351,
+		122, 355,
+		14, 276
 	};
-	pops_triangle.add(App->physics->CreateChain(569, 722, Wall1, 33, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(560, 615, Wall1, 33, b2_staticBody));
 
 	int Wall2[32] = {
 		41, 11,
