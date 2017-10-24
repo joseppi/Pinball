@@ -80,8 +80,8 @@ bool ModuleSceneIntro::Start()
 		384, 1021,
 		504, 975,
 		566, 931,
-		592, 897,
-		598, 855,
+		588, 904,
+		598, 873,
 		598, 665
 	};
 	pinballs.add(App->physics->CreateChain(SCREEN_WIDTH / 2, 55, pinball, 83, b2_staticBody));
@@ -125,7 +125,7 @@ bool ModuleSceneIntro::Start()
 		41, 133,
 		41, 21
 	};
-	pops_triangle.add(App->physics->CreateChain(1007, 751, Wall2, 33, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(1006, 751, Wall2, 33, b2_staticBody));
 
 	//Bumpers -------------------------
 	//Cricles
