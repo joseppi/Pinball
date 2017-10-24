@@ -4,6 +4,10 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "Box2D/Box2D/Box2D.h"
+
+class PhysBody;
+struct SDL_Texture;
+
 class ModulePlayer : public Module
 {
 public:
@@ -22,8 +26,8 @@ private:
 	void setRightFlipper();
 
 public:
-	//SDL_Texture* tx_flipper_left;
-	//SDL_Texture* tx_flipper_right;
+	SDL_Texture* tx_flipper_left;
+	SDL_Texture* tx_flipper_right;
 
 private:
 	PhysBody* spring;

@@ -10,6 +10,8 @@
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	tx_flipper_left = nullptr;
+	tx_flipper_right = nullptr;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -20,8 +22,8 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player");
 
-	//tx_flipper_left = App->textures->Load("pinball/Flipper.png");
-	//tx_flipper_right = App->textures->Load("pinball/Flipper.png");
+	tx_flipper_left = App->textures->Load("Game/pinball/Flipper.png");
+	tx_flipper_right = App->textures->Load("Game/pinball/Flipper.png");
 
 	setSpring();
 	setLeftFlipper();
@@ -41,6 +43,7 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
+	//SPRING
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		prismatic_joint->EnableMotor(true);
@@ -50,6 +53,7 @@ update_status ModulePlayer::Update()
    		prismatic_joint->EnableMotor(false);
 	}
 
+	//LEFT FLIPPER
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		revolute_joint_left->EnableMotor(true);
@@ -58,7 +62,7 @@ update_status ModulePlayer::Update()
 	{
 		revolute_joint_left->EnableMotor(false);
 	}
-
+	//RIGHT FLIPPER
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
 	{
 		revolute_joint_right->EnableMotor(true);
@@ -69,11 +73,11 @@ update_status ModulePlayer::Update()
 	}
 
 	//Blitting flippers-------------------------------------------------
-	//flipper_left->GetPosition(position.x, position.y);
-	//App->renderer->Blit(tx_flipper_left, position.x, position.y, NULL, 1.0f, flipper_left->GetRotation());
+	flipper_left->GetPosition(position.x, position.y);
+	App->renderer->Blit(tx_flipper_left, position.x, position.y, NULL, 2.0f, flipper_left->GetRotation());
 
-	//flipper_right->GetPosition(position.x, position.y);
-	//App->renderer->Blit(tx_flipper_right, position.x, position.y, NULL, 1.0f, flipper_right->GetRotation());
+	flipper_right->GetPosition(position.x, position.y);
+	App->renderer->Blit(tx_flipper_right, position.x, position.y, NULL, 2.0f, flipper_right->GetRotation());
 
 	return UPDATE_CONTINUE;
 }
