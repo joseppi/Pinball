@@ -261,16 +261,6 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-	//if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-	//{
-	//	circles.add(App->physics->CreateCircle(1150, 800, 16, b2_dynamicBody));
-	//	circles.getLast()->data->listener = this;
-	//}
-
-	if(App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-	{
-		//boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50, b2_dynamicBody));
-	}
 
 	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 	{
@@ -346,7 +336,6 @@ update_status ModuleSceneIntro::Update()
 		{
 			b2Vec2 positionm(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
 			c->data->body->SetTransform(positionm, 0);
-			c->data->body->IsActive();
 		}
 		App->renderer->Blit(circle, x, y, NULL, 2.0f, c->data->GetRotation());
 		c = c->next;
