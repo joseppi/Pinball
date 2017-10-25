@@ -110,6 +110,7 @@ void ModulePlayer::setSpring()
 
 void ModulePlayer::setLeftFlipper() 
 {
+	//flipper_left = App->physics->CreateChain(711, 964, Flipper, 45, b2_dynamicBody);
 	flipper_left = App->physics->CreateRectangle(711, 964, 150, 30, b2_dynamicBody);
 	flipper_pivot_left = App->physics->CreateCircle(711, 964, 10, b2_staticBody);
 
