@@ -26,20 +26,23 @@ bool ModuleSceneIntro::Start()
 	bool ret = true;
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
-	//box = App->textures->Load("pinball/crate.png");
-	//bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
+	//Load Textures
 	structure = App->textures->Load("pinball/Pinball_No_Margins.png");
 	circle = App->textures->Load("pinball/Ball.png");
 	texture_sensor = App->textures->Load("pinball/sensor_red.png");
+	//box = App->textures->Load("pinball/crate.png");
+	//bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 	
-	//sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
+	
 
 	//Sensors
 	sensors.add(App->physics->CreateCircleSensor(855, 825, 16, 0));
 	sensors.add(App->physics->CreateCircleSensor(855, 868, 16, 0));
 	sensors.add(App->physics->CreateCircleSensor(855, 909, 16, 0));
+	//sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
 
 	//Draw Ball
+	//circles.add(App->physics->CreateCircle(1150, 800, 16, b2_bulletBody));
 	circles.add(App->physics->CreateCircle(1150, 800, 16, b2_dynamicBody));
 	circles.getLast()->data->listener = this;
 
@@ -300,11 +303,8 @@ update_status ModuleSceneIntro::Update()
 		}
 		if (c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()) && c->data->body->IsAwake())
 		{
-
 			c->data->body->SetAwake(false);
-
 		}
-
 		c = c->next;
 	}
 
@@ -335,9 +335,7 @@ update_status ModuleSceneIntro::Update()
 		fVector destination(mouse.x-ray.x, mouse.y-ray.y);
 		destination.Normalize();
 		destination *= ray_hit;
-
 		App->renderer->DrawLine(ray.x, ray.y, ray.x + destination.x, ray.y + destination.y, 255, 255, 255);
-
 		if(normal.x != 0.0f)
 			App->renderer->DrawLine(ray.x + destination.x, ray.y + destination.y, ray.x + destination.x + normal.x * 25.0f, ray.y + destination.y + normal.y * 25.0f, 100, 255, 100);
 	}
