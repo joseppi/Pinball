@@ -40,10 +40,10 @@ enum b2BodyType
 {
 	b2_staticBody = 0,
 	b2_kinematicBody,
-	b2_dynamicBody
+	b2_dynamicBody,
 
 	// TODO_ERIN
-	//b2_bulletBody,
+	b2_bulletBody
 };
 
 /// A body definition holds all the data needed to construct a rigid body.
