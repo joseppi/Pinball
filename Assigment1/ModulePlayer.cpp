@@ -22,6 +22,8 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player");
 
+	tx_spring = App->textures->Load("pinball/Spring.png");
+
 	tx_flipper_left = App->textures->Load("pinball/left_Flipper.png");
 	tx_flipper_right = App->textures->Load("pinball/right_Flipper.png");
 
@@ -36,6 +38,8 @@ bool ModulePlayer::Start()
 bool ModulePlayer::CleanUp()
 {
 	LOG("Unloading player");
+	App->textures->Unload(tx_spring);
+
 	App->textures->Unload(tx_flipper_left);
 	App->textures->Unload(tx_flipper_left);
 
@@ -74,13 +78,16 @@ update_status ModulePlayer::Update()
 		revolute_joint_right->EnableMotor(false);
 	}
 
-	//Blitting flippers-------------------------------------------------
+	//Blitting flippers-----------------------------------------------
 	flipper_left->GetPosition(position.x, position.y);
 	App->renderer->Blit(tx_flipper_left, position.x - 5, position.y - 10, NULL, 28.0f,  flipper_left->GetRotation());
 
 	flipper_right->GetPosition(position.x, position.y);
 	App->renderer->Blit(tx_flipper_right, position.x, position.y - 10, NULL, 28.0f,  flipper_right->GetRotation());
 
+	//Blitting spring-------------------------------------------------
+	spring->GetPosition(position.x, position.y);
+	App->renderer->Blit(tx_spring, position.x, position.y - 1, NULL, 1.0f);
 	return UPDATE_CONTINUE;
 }
 

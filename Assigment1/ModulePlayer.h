@@ -26,12 +26,15 @@ private:
 	void setRightFlipper();
 
 public:
+	SDL_Texture* tx_spring;
+
 	SDL_Texture* tx_flipper_left;
 	SDL_Texture* tx_flipper_right;
 
 private:
 	PhysBody* spring;
 	PhysBody* spring_pivot;
+
 	PhysBody* flipper_left;
 	PhysBody* flipper_pivot_left;
 	PhysBody* flipper_right;
