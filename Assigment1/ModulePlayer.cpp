@@ -22,8 +22,8 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player");
 
-	tx_flipper_left = App->textures->Load("Game/pinball/Flipper.png");
-	tx_flipper_right = App->textures->Load("Game/pinball/Flipper.png");
+	tx_flipper_left = App->textures->Load("pinball/left_Flipper.png");
+	tx_flipper_right = App->textures->Load("pinball/right_Flipper.png");
 
 	setSpring();
 	setLeftFlipper();
@@ -36,6 +36,8 @@ bool ModulePlayer::Start()
 bool ModulePlayer::CleanUp()
 {
 	LOG("Unloading player");
+	App->textures->Unload(tx_flipper_left);
+	App->textures->Unload(tx_flipper_left);
 
 	return true;
 }
@@ -74,10 +76,10 @@ update_status ModulePlayer::Update()
 
 	//Blitting flippers-------------------------------------------------
 	flipper_left->GetPosition(position.x, position.y);
-	App->renderer->Blit(tx_flipper_left, position.x, position.y, NULL, 2.0f, flipper_left->GetRotation());
+	App->renderer->Blit(tx_flipper_left, position.x - 5, position.y - 10, NULL, 28.0f,  flipper_left->GetRotation());
 
 	flipper_right->GetPosition(position.x, position.y);
-	App->renderer->Blit(tx_flipper_right, position.x, position.y, NULL, 2.0f, flipper_right->GetRotation());
+	App->renderer->Blit(tx_flipper_right, position.x, position.y - 10, NULL, 28.0f,  flipper_right->GetRotation());
 
 	return UPDATE_CONTINUE;
 }
@@ -110,7 +112,6 @@ void ModulePlayer::setSpring()
 
 void ModulePlayer::setLeftFlipper() 
 {
-	//flipper_left = App->physics->CreateChain(711, 964, Flipper, 45, b2_dynamicBody);
 	flipper_left = App->physics->CreateRectangle(711, 964, 150, 30, b2_dynamicBody);
 	flipper_pivot_left = App->physics->CreateCircle(711, 964, 10, b2_staticBody);
 
@@ -128,8 +129,8 @@ void ModulePlayer::setLeftFlipper()
 	revDef.upperAngle = 28 * DEGTORAD;
 	revDef.lowerAngle = -28 * DEGTORAD;
 
-	revDef.motorSpeed = 3000.0f * DEGTORAD;
-	revDef.maxMotorTorque = 1500.0f;
+	revDef.motorSpeed = 5000.0f * DEGTORAD;
+	revDef.maxMotorTorque = 1750.0f;
 	revDef.enableMotor = false;
 
 	revolute_joint_left = (b2RevoluteJoint*)App->physics->world->CreateJoint(&revDef);
@@ -137,7 +138,6 @@ void ModulePlayer::setLeftFlipper()
 
 void ModulePlayer::setRightFlipper() 
 {
-
 	flipper_right = App->physics->CreateRectangle(999, 964, 150, 30, b2_dynamicBody);
 	flipper_pivot_right = App->physics->CreateCircle(999, 964, 10, b2_staticBody);
 
@@ -155,8 +155,8 @@ void ModulePlayer::setRightFlipper()
 	revDef.upperAngle = 28 * DEGTORAD;
 	revDef.lowerAngle = -28 * DEGTORAD;
 
-	revDef.motorSpeed = -3000.0f * DEGTORAD;
-	revDef.maxMotorTorque = 1500.0f;
+	revDef.motorSpeed = -5000.0f * DEGTORAD;
+	revDef.maxMotorTorque = 1750.0f;
 	revDef.enableMotor = false;
 
 	revolute_joint_right = (b2RevoluteJoint*)App->physics->world->CreateJoint(&revDef);
