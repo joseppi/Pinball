@@ -48,7 +48,7 @@ bool ModuleSceneIntro::Start()
 
 	// Draw pinball -------------------------------------------------------------
 	int pinball[82] = {
-		620, 241,
+		620, 172,
 		620, 1286,
 		666, 1286,
 		666, 203,
@@ -88,7 +88,7 @@ bool ModuleSceneIntro::Start()
 		566, 931,
 		588, 904,
 		598, 873,
-		598, 241
+		598, 172
 	};
 	pinballs.add(App->physics->CreateChain(SCREEN_WIDTH / 2, 55, pinball, 83, b2_staticBody));
 
@@ -114,24 +114,24 @@ bool ModuleSceneIntro::Start()
 	pops_triangle.add(App->physics->CreateChain(559, 615, Wall1, 33, b2_staticBody));
 
 	int Wall2[32] = {
-		41, 11,
-		44, 7,
-		66, 7,
-		70, 11,
-		70, 172,
-		26, 215,
-		24, 214,
-		25, 204,
-		20, 192,
-		12, 186,
-		5, 186,
-		20, 173,
-		31, 160,
-		39, 147,
+		41, 16,
+		45, 13,
+		66, 13,
+		70, 17,
+		70, 237,
+		27, 280,
+		24, 281,
+		25, 270,
+		21, 259,
+		15, 254,
+		6, 252,
+		27, 231,
+		35, 221,
+		41, 207,
 		41, 133,
 		41, 21
 	};
-	pops_triangle.add(App->physics->CreateChain(1006, 751, Wall2, 33, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(1006, 685, Wall2, 33, b2_staticBody));
 
 	//Bumpers -------------------------
 	//Cricles
@@ -261,7 +261,6 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-
 	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 	{
 		circles.clear();

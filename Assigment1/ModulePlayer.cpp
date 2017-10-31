@@ -80,10 +80,10 @@ update_status ModulePlayer::Update()
 
 	//Blitting flippers-----------------------------------------------
 	flipper_left->GetPosition(position.x, position.y);
-	App->renderer->Blit(tx_flipper_left, position.x - 5, position.y - 10, NULL, 28.0f,  flipper_left->GetRotation());
+	App->renderer->Blit(tx_flipper_left, position.x - 5, position.y - 7, NULL, 28.0f,  flipper_left->GetRotation());
 
 	flipper_right->GetPosition(position.x, position.y);
-	App->renderer->Blit(tx_flipper_right, position.x, position.y - 10, NULL, 28.0f,  flipper_right->GetRotation());
+	App->renderer->Blit(tx_flipper_right, position.x, position.y - 7, NULL, 28.0f,  flipper_right->GetRotation());
 
 	//Blitting spring-------------------------------------------------
 	spring->GetPosition(position.x, position.y);
