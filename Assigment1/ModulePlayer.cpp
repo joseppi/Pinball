@@ -112,7 +112,7 @@ void ModulePlayer::setSpring()
 	PrismDef.lowerTranslation = 0;
 	PrismDef.enableMotor = false;
 	PrismDef.motorSpeed = 50;
-	PrismDef.maxMotorForce = 3000;
+	PrismDef.maxMotorForce = 3750;
 	
 	prismatic_joint = (b2PrismaticJoint*)App->physics->world->CreateJoint(&PrismDef);
 }

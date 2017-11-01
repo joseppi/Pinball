@@ -40,172 +40,64 @@ bool ModuleSceneIntro::Start()
 	//sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
 
 	//Draw Ball
-	circles.add(App->physics->CreateCircle(1150, 800, 16, 0.25f, b2_dynamicBody));
+	circles.add(App->physics->CreateCircle(1150, 800, 16, 0.05f, b2_dynamicBody));
 	circles.getLast()->data->listener = this;
 
-	// Draw pinball -------------------------------------------------------------
+	// Draw pinball ------------------------------------------------------------------------
 	int pinball[82] = {
 		620, 172, 620, 1286, 666, 1286,666, 203,655, 161,636, 122,606, 90,565, 66,529, 57,183, 57,
 		159, 60,132, 67,103, 83,80, 105,61, 134,53, 170,51, 206,56, 260,69, 304,88, 345,129, 401,24, 487,
 		24, 831,31, 860,41, 882,65, 912,100, 938,155, 966,300, 1021,300, 1047,5, 1047,5, 1455,
 		612, 1455,	612, 1047,	384, 1047,384, 1021,504, 975,566, 931,588, 904,598, 873,598, 172
 	};
-	pinballs.add(App->physics->CreateChain(SCREEN_WIDTH / 2, 55, pinball, 83, b2_staticBody));
+	pinballs.add(App->physics->CreateChain(SCREEN_WIDTH / 2, 55, pinball, 83, 0.0f, b2_staticBody));
 
 	//Walls
 	int Wall1[32] = {
-		14, 267,
-		14, 30,
-		16, 24,
-		41, 24,
-		44, 30,
-		44, 234,
-		50, 252,
-		63, 267,
-		79, 283,
-		136, 321,
-		129, 324,
-		124, 333,
-		121, 344,
-		125, 351,
-		122, 355,
-		14, 276
+		14, 267, 14, 30, 16, 24, 41, 24, 44, 30, 44, 234, 50, 252, 63, 267,
+		79, 283, 136, 321, 129, 324, 124, 333, 121, 344, 125, 351, 122, 355, 14, 276
 	};
-	pops_triangle.add(App->physics->CreateChain(559, 615, Wall1, 33, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(559, 615, Wall1, 33, 0.0f, b2_staticBody));
 
 	int Wall2[32] = {
-		41, 16,
-		45, 13,
-		66, 13,
-		70, 17,
-		70, 237,
-		27, 280,
-		24, 281,
-		25, 270,
-		21, 259,
-		15, 254,
-		6, 252,
-		27, 231,
-		35, 221,
-		41, 207,
-		41, 133,
-		41, 21
+		41, 16, 45, 13, 66, 13, 70, 17, 70, 237, 27, 280, 24, 281, 25, 270,
+		21, 259, 15, 254, 6, 252, 27, 231, 35, 221, 41, 207, 41, 133, 41, 21
 	};
-	pops_triangle.add(App->physics->CreateChain(1006, 685, Wall2, 33, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(1006, 685, Wall2, 33, 0.0f, b2_staticBody));
 
-	//Bumpers -------------------------
+	//Bumpers ------------------------------------------------------------------------------
 	//Cricles
-	pops_circular.add(App->physics->CreateCircle(724, 350, 45, 0.75f, b2_staticBody));
-	pops_circular.add(App->physics->CreateCircle(985, 371, 45, 0.75f, b2_staticBody));
-	pops_circular.add(App->physics->CreateCircle(854, 564, 45, 0.75f, b2_staticBody));
+	pops_circular.add(App->physics->CreateCircle(724, 350, 45, 0.85f, b2_staticBody));
+	pops_circular.add(App->physics->CreateCircle(985, 371, 45, 0.85f, b2_staticBody));
+	pops_circular.add(App->physics->CreateCircle(854, 564, 45, 0.85f, b2_staticBody));
 
 	//Triangles
 	int Tri1[64] = {
-		269, 66,
-		271, 58,
-		268, 50,
-		85, 12,
-		77, 12,
-		13, 49,
-		10, 59,
-		16, 67,
-		31, 68,
-		27, 91,
-		44, 91,
-		52, 68,
-		60, 68,
-		68, 90,
-		83, 90,
-		94, 68,
-		101, 68,
-		112, 90,
-		128, 90,
-		137, 68,
-		147, 68,
-		156, 90,
-		172, 90,
-		180, 68,
-		188, 68,
-		197, 91,
-		214, 91,
-		220, 68,
-		233, 68,
-		240, 91,
-		256, 91,
-		253, 68
+		269, 66, 271, 58, 268, 50, 85, 12, 77, 12, 13, 49, 10, 59, 16, 67, 31, 68,
+		27, 91, 44, 91, 52, 68, 60, 68, 68, 90, 83, 90, 94, 68, 101, 68, 112, 90, 128, 90,
+		137, 68, 147, 68, 156, 90, 172, 90, 180, 68, 188, 68, 197, 91, 214, 91,
+		220, 68, 233, 68, 240, 91, 256, 91, 253, 68
 	};
-	pops_triangle.add(App->physics->CreateChain(702, 159, Tri1, 65, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(702, 159, Tri1, 65, 1.0f, b2_staticBody));
 
 	int Tri2[16] = {
-		78, 84,
-		34, 21,
-		24, 17,
-		17, 24,
-		17, 152,
-		25, 160,
-		36, 154,
-		79, 91
+		78, 84, 34, 21, 24, 17, 17, 24,
+		17, 152, 25, 160, 36, 154, 79, 91
 	};
-	pops_triangle.add(App->physics->CreateChain(985, 480, Tri2, 17, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(985, 480, Tri2, 17, 1.0f, b2_staticBody));
 
 	int Tri3[16] = {
-		9, 96,
-		36, 21,
-		44, 14,
-		53, 19,
-		86, 144,
-		81, 151,
-		72, 152,
-		12, 101
+		9, 96, 36, 21, 44, 14, 53, 19,
+		86, 144, 81, 151, 72, 152, 12, 101
 	};
-	pops_triangle.add(App->physics->CreateChain(627, 710, Tri3, 17, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(627, 710, Tri3, 17, 1.0f, b2_staticBody));
 
 	//Square
 	int Sqr[32] = {
-		22, 91,
-		17, 95,
-		11, 87,
-		105, 8,
-		112, 16,
-		105, 22,
-		120, 36,
-		108, 46,
-		87, 36,
-		77, 44,
-		82, 66,
-		69, 77,
-		48, 68,
-		39, 76,
-		43, 99,
-		32, 108
+		22, 91, 17, 95, 11, 87, 105, 8, 112, 16, 105, 22, 120, 36, 108, 46,
+		87, 36, 77, 44, 82, 66, 69, 77, 48, 68, 39, 76, 43, 99, 32, 108
 	};
-	pops_square.add(App->physics->CreateChain(536, 445, Sqr, 33, b2_staticBody));
-
-	//Flipper --------------------------
-	int Flipper[44] = {
-		1, 27,
-		1, 42,
-		5, 103,
-		7, 139,
-		9, 146,
-		13, 152,
-		20, 157,
-		27, 157,
-		35, 152,
-		38, 145,
-		40, 136,
-		42, 85,
-		44, 43,
-		44, 27,
-		42, 16,
-		40, 9,
-		34, 4,
-		26, 0,
-		19, 1,
-		13, 4,
-		6, 10,
-		3, 19
-	};
+	pops_square.add(App->physics->CreateChain(536, 445, Sqr, 33, 1.0f, b2_staticBody));
 	
 	return ret;
 }

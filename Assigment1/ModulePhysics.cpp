@@ -144,7 +144,7 @@ PhysBody* ModulePhysics::CreateCircleSensor(int x, int y, int radius, int state)
 	fixture.density = 1.0f;
 	fixture.isSensor = true;
 	fixture.filter.categoryBits;
-		fixture.filter.maskBits;
+	fixture.filter.maskBits;
 
 	b->CreateFixture(&fixture);
 
@@ -183,7 +183,7 @@ PhysBody* ModulePhysics::CreateRectangleSensor(int x, int y, int width, int heig
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size, b2BodyType type)
+PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size, float restitution, b2BodyType type)
 {
 	b2BodyDef body;
 	body.type = type;
@@ -204,7 +204,7 @@ PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size, b2Body
 
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
-
+	fixture.restitution = restitution;
 	b->CreateFixture(&fixture);
 
 	delete p;
