@@ -96,13 +96,16 @@ bool ModuleSceneIntro::Start()
 	};
 	pops_triangle.add(App->physics->CreateChain(628, 710, Tri3, 17, 0.8f, b2_staticBody));
 
-	//Square
+	//Squares
 	int Sqr[32] = {
 		22, 91, 17, 95, 11, 87, 105, 8, 112, 16, 105, 22, 120, 36, 108, 46,
 		87, 36, 77, 44, 82, 66, 69, 77, 48, 68, 39, 76, 43, 99, 32, 108
 	};
 	pops_square.add(App->physics->CreateChain(536, 445, Sqr, 33, 0.8f, b2_staticBody));
 	
+	pops_square.add(App->physics->CreateRectangle(554, 725, 23, 25, 3.0f, b2_staticBody));
+	pops_square.add(App->physics->CreateRectangle(1093, 758, 23, 25, 3.0f, b2_staticBody));
+
 	//Load audio ------------------------------------------------------------------------
 	App->audio->PlayMusic("Audio/Music_audio.ogg", 1.0f);
 

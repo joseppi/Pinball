@@ -98,8 +98,8 @@ update_status ModulePlayer::Update()
 
 void ModulePlayer::setSpring()
 {
-	spring = App->physics->CreateRectangle(1156, 800, 41, 100, b2_dynamicBody);
-	spring_pivot = App->physics->CreateRectangle(1156, 980, 41, 30, b2_staticBody);
+	spring = App->physics->CreateRectangle(1156, 800, 41, 100, 0.0f, b2_dynamicBody);
+	spring_pivot = App->physics->CreateRectangle(1156, 980, 41, 30, 0.0f, b2_staticBody);
 
 	b2PrismaticJointDef PrismDef;
 
@@ -124,7 +124,7 @@ void ModulePlayer::setSpring()
 
 void ModulePlayer::setLeftFlipper() 
 {
-	flipper_left = App->physics->CreateRectangle(711, 964, 150, 30, b2_dynamicBody);
+	flipper_left = App->physics->CreateRectangle(711, 964, 150, 30, 0.0f, b2_dynamicBody);
 	flipper_pivot_left = App->physics->CreateCircle(711, 964, 10, 0.0f, b2_staticBody);
 
 	b2RevoluteJointDef revDef;
@@ -150,7 +150,7 @@ void ModulePlayer::setLeftFlipper()
 
 void ModulePlayer::setRightFlipper() 
 {
-	flipper_right = App->physics->CreateRectangle(999, 964, 150, 30, b2_dynamicBody);
+	flipper_right = App->physics->CreateRectangle(999, 964, 150, 30, 0.0f, b2_dynamicBody);
 	flipper_pivot_right = App->physics->CreateCircle(999, 964, 10, 0.0f, b2_staticBody);
 
 	b2RevoluteJointDef revDef;
