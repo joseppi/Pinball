@@ -66,21 +66,24 @@ update_status ModulePlayer::Update()
 	{
 		revolute_joint_left->EnableMotor(true);
 		App->audio->PlayFx(App->scene_intro->flipper_fx);
-
+		App->scene_intro->pops_mini.getFirst()->data->body->SetTransform({ PIXEL_TO_METERS(554), PIXEL_TO_METERS(725) }, 0);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
 	{
 		revolute_joint_left->EnableMotor(false);
+		App->scene_intro->pops_mini.getFirst()->data->body->SetTransform({ PIXEL_TO_METERS(554), PIXEL_TO_METERS(1725) }, 0);
 	}
 	//RIGHT FLIPPER
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
 	{
 		revolute_joint_right->EnableMotor(true);
 		App->audio->PlayFx(App->scene_intro->flipper_fx);
+		App->scene_intro->pops_mini.getLast()->data->body->SetTransform({ PIXEL_TO_METERS(1093), PIXEL_TO_METERS(758) }, 0);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
 	{
 		revolute_joint_right->EnableMotor(false);
+		App->scene_intro->pops_mini.getLast()->data->body->SetTransform({ PIXEL_TO_METERS(1093), PIXEL_TO_METERS(1758) }, 0);
 	}
 
 	//Blitting flippers-----------------------------------------------
