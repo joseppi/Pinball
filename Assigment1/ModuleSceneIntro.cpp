@@ -34,10 +34,14 @@ bool ModuleSceneIntro::Start()
 	//bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
 	//Sensors
-	sensors.add(App->physics->CreateCircleSensor(855, 825, 16, 0));
-	sensors.add(App->physics->CreateCircleSensor(855, 868, 16, 0));
-	sensors.add(App->physics->CreateCircleSensor(855, 909, 16, 0));
-	//sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
+	sensors = App->physics->CreateCircleSensor(855, 825, 16, 0); 
+	sensors->listener = this;
+	sensors2 = App->physics->CreateCircleSensor(855, 868, 16, 0);
+	sensors2->listener = this;
+	sensors3 = App->physics->CreateCircleSensor(855, 909, 16, 0);
+	sensors3->listener = this;
+	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
+	sensor->listener = this;
 
 	//Draw Ball
 	circles.add(App->physics->CreateCircle(1150, 800, 16, 0.05f, b2_dynamicBody));
@@ -128,6 +132,7 @@ update_status ModuleSceneIntro::Update()
 
 	// All draw functions ------------------------------------------------------
 	p2List_item<PhysBody*>* c = pinballs.getFirst();
+	PhysBody* b;
 
 	SDL_Rect rect;
 
@@ -155,21 +160,22 @@ update_status ModuleSceneIntro::Update()
 		}
 		c = c->next;
 	}
-	c = sensors.getFirst();
 
-	while (c != NULL)
+	b = sensors;
+
+	if (b != NULL)
 	{
 		int x, y;
-		c->data->GetPosition(x, y);
-		if (c->data->body->IsAwake() == false)
+		
+		b->GetPosition(x, y);
+		if (b->body->IsAwake() == false)
 		{
 			App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
 		}
-		if (c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()) && c->data->body->IsAwake())
+		if (active == true)
 		{
-			c->data->body->SetAwake(false);
+			b->body->SetAwake(false);
 		}
-		c = c->next;
 	}
 
 	c = circles.getFirst();
@@ -189,8 +195,16 @@ update_status ModuleSceneIntro::Update()
 			c->data->body->SetTransform(positionm, 0);
 		}
 		App->renderer->Blit(circle, x, y, NULL, 2.0f, c->data->GetRotation());
+		if (tp == true)
+		{
+			b2Vec2 position(23.1f, 16.9f);
+			c->data->body->SetTransform(position, 0);
+			tp = false;
+		}
 		c = c->next;
 	}
+
+
 
 	// ray -----------------
 	if(ray_on == true)
@@ -212,11 +226,16 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 	App->audio->PlayFx(bonus_fx);
 
-	if(bodyA)
+	if(bodyA == sensors)
 	{
-		b2Vec2 positionm(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
-		bodyA->GetPosition(x, y);
-		App->renderer->DrawCircle(x, y, 50, 200, 100, 100);
+		active = true;
+		//b2Vec2 positionm(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
+		//bodyA->GetPosition(x, y);
+		//App->renderer->DrawCircle(x, y, 50, 200, 100, 100);
+	}
+	if (bodyA == sensor)
+	{
+		tp = true;
 	}
 
 	if(bodyB)

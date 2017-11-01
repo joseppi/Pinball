@@ -22,7 +22,11 @@ public:
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> pinballs;
 	p2List<PhysBody*> walls;
-	p2List<PhysBody*> sensors;
+	PhysBody* sensors;
+	PhysBody* sensors2;
+	PhysBody* sensors3;
+	bool active = false;
+	bool tp = false;
 	
 	//Bumpers
 	p2List<PhysBody*> pops_circular;
