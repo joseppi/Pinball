@@ -134,6 +134,7 @@ PhysBody* ModulePhysics::CreateCircleSensor(int x, int y, int radius, int state)
 	body.type = b2_staticBody;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 	
+	
 	b2Body* b = world->CreateBody(&body);
 
 	b2CircleShape shape;
@@ -144,7 +145,8 @@ PhysBody* ModulePhysics::CreateCircleSensor(int x, int y, int radius, int state)
 	fixture.density = 1.0f;
 	fixture.isSensor = true;
 	fixture.filter.categoryBits;
-		fixture.filter.maskBits;
+	fixture.filter.maskBits;
+	
 
 	b->CreateFixture(&fixture);
 
