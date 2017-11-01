@@ -32,8 +32,6 @@ bool ModuleSceneIntro::Start()
 	texture_sensor = App->textures->Load("pinball/sensor_red.png");
 	//box = App->textures->Load("pinball/crate.png");
 	//bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
-	
-	
 
 	//Sensors
 	sensors.add(App->physics->CreateCircleSensor(855, 825, 16, 0));
@@ -42,53 +40,15 @@ bool ModuleSceneIntro::Start()
 	//sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
 
 	//Draw Ball
-	//circles.add(App->physics->CreateCircle(1150, 800, 16, b2_bulletBody));
-	circles.add(App->physics->CreateCircle(1150, 800, 16, b2_dynamicBody));
+	circles.add(App->physics->CreateCircle(1150, 800, 16, 0.25f, b2_dynamicBody));
 	circles.getLast()->data->listener = this;
 
 	// Draw pinball -------------------------------------------------------------
 	int pinball[82] = {
-		620, 172,
-		620, 1286,
-		666, 1286,
-		666, 203,
-		655, 161,
-		636, 122,
-		606, 90,
-		565, 66,
-		529, 57,
-		183, 57,
-		159, 60,
-		132, 67,
-		103, 83,
-		80, 105,
-		61, 134,
-		53, 170,
-		51, 206,
-		56, 260,
-		69, 304,
-		88, 345,
-		129, 401,
-		24, 487,
-		24, 831,
-		31, 860,
-		41, 882,
-		65, 912,
-		100, 938,
-		155, 966,
-		300, 1021,
-		300, 1047,
-		5, 1047,
-		5, 1455,
-		612, 1455,
-		612, 1047,
-		384, 1047,
-		384, 1021,
-		504, 975,
-		566, 931,
-		588, 904,
-		598, 873,
-		598, 172
+		620, 172, 620, 1286, 666, 1286,666, 203,655, 161,636, 122,606, 90,565, 66,529, 57,183, 57,
+		159, 60,132, 67,103, 83,80, 105,61, 134,53, 170,51, 206,56, 260,69, 304,88, 345,129, 401,24, 487,
+		24, 831,31, 860,41, 882,65, 912,100, 938,155, 966,300, 1021,300, 1047,5, 1047,5, 1455,
+		612, 1455,	612, 1047,	384, 1047,384, 1021,504, 975,566, 931,588, 904,598, 873,598, 172
 	};
 	pinballs.add(App->physics->CreateChain(SCREEN_WIDTH / 2, 55, pinball, 83, b2_staticBody));
 
@@ -135,9 +95,9 @@ bool ModuleSceneIntro::Start()
 
 	//Bumpers -------------------------
 	//Cricles
-	pops_circular.add(App->physics->CreateCircle(724, 350, 45, b2_staticBody));
-	pops_circular.add(App->physics->CreateCircle(985, 371, 45, b2_staticBody));
-	pops_circular.add(App->physics->CreateCircle(854, 564, 45, b2_staticBody));
+	pops_circular.add(App->physics->CreateCircle(724, 350, 45, 0.75f, b2_staticBody));
+	pops_circular.add(App->physics->CreateCircle(985, 371, 45, 0.75f, b2_staticBody));
+	pops_circular.add(App->physics->CreateCircle(854, 564, 45, 0.75f, b2_staticBody));
 
 	//Triangles
 	int Tri1[64] = {

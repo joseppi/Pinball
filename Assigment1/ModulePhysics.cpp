@@ -76,7 +76,7 @@ update_status ModulePhysics::PreUpdate()
 	return UPDATE_CONTINUE;
 }
 
-PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, b2BodyType type, bool bullet)
+PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, float restitution, b2BodyType type, bool bullet)
 {
 	b2BodyDef body;
 	body.type = type;
@@ -90,6 +90,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, b2BodyType type,
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
 	fixture.density = 1.0f;
+	fixture.restitution = restitution;
 	b->CreateFixture(&fixture);
 
 	PhysBody* pbody = new PhysBody();
