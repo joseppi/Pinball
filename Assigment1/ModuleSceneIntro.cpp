@@ -44,7 +44,7 @@ bool ModuleSceneIntro::Start()
 	sensor->listener = this;
 
 	//Draw Ball
-	circles.add(App->physics->CreateCircle(1150, 800, 16, 0.05f, b2_dynamicBody));
+	circles.add(App->physics->CreateCircle(1150, 800, 16, 0.15f, b2_dynamicBody));
 	circles.getLast()->data->listener = this;
 
 	// Draw pinball ------------------------------------------------------------------------
@@ -71,9 +71,9 @@ bool ModuleSceneIntro::Start()
 
 	//Bumpers ------------------------------------------------------------------------------
 	//Cricles
-	pops_circular.add(App->physics->CreateCircle(724, 350, 45, 0.85f, b2_staticBody));
-	pops_circular.add(App->physics->CreateCircle(985, 371, 45, 0.85f, b2_staticBody));
-	pops_circular.add(App->physics->CreateCircle(854, 564, 45, 0.85f, b2_staticBody));
+	pops_circular.add(App->physics->CreateCircle(724, 350, 45, 0.5f, b2_staticBody));
+	pops_circular.add(App->physics->CreateCircle(985, 371, 45, 0.5f, b2_staticBody));
+	pops_circular.add(App->physics->CreateCircle(854, 564, 45, 0.5f, b2_staticBody));
 
 	//Triangles
 	int Tri1[64] = {
@@ -94,7 +94,7 @@ bool ModuleSceneIntro::Start()
 		9, 96, 36, 21, 44, 14, 53, 19,
 		86, 144, 81, 151, 72, 152, 12, 101
 	};
-	pops_triangle.add(App->physics->CreateChain(627, 710, Tri3, 17, 0.8f, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(628, 710, Tri3, 17, 0.8f, b2_staticBody));
 
 	//Square
 	int Sqr[32] = {
