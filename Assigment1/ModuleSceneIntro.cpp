@@ -82,28 +82,30 @@ bool ModuleSceneIntro::Start()
 		137, 68, 147, 68, 156, 90, 172, 90, 180, 68, 188, 68, 197, 91, 214, 91,
 		220, 68, 233, 68, 240, 91, 256, 91, 253, 68
 	};
-	pops_triangle.add(App->physics->CreateChain(702, 159, Tri1, 65, 1.0f, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(702, 159, Tri1, 65, 0.8f, b2_staticBody));
 
 	int Tri2[16] = {
 		78, 84, 34, 21, 24, 17, 17, 24,
 		17, 152, 25, 160, 36, 154, 79, 91
 	};
-	pops_triangle.add(App->physics->CreateChain(985, 480, Tri2, 17, 1.0f, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(985, 480, Tri2, 17, 0.8f, b2_staticBody));
 
 	int Tri3[16] = {
 		9, 96, 36, 21, 44, 14, 53, 19,
 		86, 144, 81, 151, 72, 152, 12, 101
 	};
-	pops_triangle.add(App->physics->CreateChain(627, 710, Tri3, 17, 1.0f, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(627, 710, Tri3, 17, 0.8f, b2_staticBody));
 
 	//Square
 	int Sqr[32] = {
 		22, 91, 17, 95, 11, 87, 105, 8, 112, 16, 105, 22, 120, 36, 108, 46,
 		87, 36, 77, 44, 82, 66, 69, 77, 48, 68, 39, 76, 43, 99, 32, 108
 	};
-	pops_square.add(App->physics->CreateChain(536, 445, Sqr, 33, 1.0f, b2_staticBody));
+	pops_square.add(App->physics->CreateChain(536, 445, Sqr, 33, 0.8f, b2_staticBody));
 	
 	//Load audio ------------------------------------------------------------------------
+	App->audio->PlayMusic("Audio/Music_audio.ogg", 1.0f);
+
 	bouncers_fx = App->audio->LoadFx("audio/Bumpers_fx.wav");
 	flipper_fx = App->audio->LoadFx("audio/Flipper_fx.wav");
 	spring_fx = App->audio->LoadFx("audio/Spring_fx.wav");
