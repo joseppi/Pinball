@@ -53,6 +53,8 @@ update_status ModulePlayer::Update()
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		prismatic_joint->EnableMotor(true);
+		App->audio->PlayFx(App->scene_intro->spring_fx);
+
 	}
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 	{
@@ -63,6 +65,8 @@ update_status ModulePlayer::Update()
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		revolute_joint_left->EnableMotor(true);
+		App->audio->PlayFx(App->scene_intro->flipper_fx);
+
 	}
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
 	{
@@ -72,6 +76,7 @@ update_status ModulePlayer::Update()
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
 	{
 		revolute_joint_right->EnableMotor(true);
+		App->audio->PlayFx(App->scene_intro->flipper_fx);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
 	{
@@ -168,3 +173,15 @@ void ModulePlayer::setRightFlipper()
 
 	revolute_joint_right = (b2RevoluteJoint*)App->physics->world->CreateJoint(&revDef);
 }
+
+//void ModulePlayer::OnCollision(PhysBody * body_A, PhysBody * body_B)
+//{
+//	if (body_B->body->GetType() == b2_staticBody){
+//		App->audio->PlayFx(App->scene_intro->bouncers_fx);
+//
+//	}
+//	if ((body_B == flipper_left || body_B == flipper_right) && (revolute_joint_left->IsMotorEnabled() || revolute_joint_right->IsMotorEnabled()))
+//	{
+//		App->audio->PlayFx(App->scene_intro->flipper_fx);
+//	}
+//}

@@ -32,7 +32,7 @@ bool ModuleSceneIntro::Start()
 	texture_sensor = App->textures->Load("pinball/sensor_red.png");
 	//box = App->textures->Load("pinball/crate.png");
 	//bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
-
+	
 	//Sensors
 	sensors = App->physics->CreateCircleSensor(855, 825, 16, 0); 
 	sensors->listener = this;
@@ -103,6 +103,11 @@ bool ModuleSceneIntro::Start()
 	};
 	pops_square.add(App->physics->CreateChain(536, 445, Sqr, 33, 1.0f, b2_staticBody));
 	
+	//Load audio ------------------------------------------------------------------------
+	bouncers_fx = App->audio->LoadFx("audio/Bumpers_fx.wav");
+	flipper_fx = App->audio->LoadFx("audio/Flipper_fx.wav");
+	spring_fx = App->audio->LoadFx("audio/Spring_fx.wav");
+
 	return ret;
 }
 

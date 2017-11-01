@@ -48,4 +48,9 @@ public:
 	uint bonus_fx;
 	p2Point<int> ray;
 	bool ray_on;
+
+public:
+	uint bouncers_fx;
+	uint spring_fx;
+	uint flipper_fx;
 };

@@ -24,6 +24,7 @@ private:
 	void setSpring();
 	void setLeftFlipper();
 	void setRightFlipper();
+	//void ModulePlayer::OnCollision(PhysBody * body_A, PhysBody * body_B);
 
 public:
 	SDL_Texture* tx_spring;
