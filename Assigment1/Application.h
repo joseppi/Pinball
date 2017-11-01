@@ -7,6 +7,7 @@ class Module;
 class ModuleRender;
 class ModuleWindow;
 class ModuleTextures;
+class ModuleFonts;
 class ModuleInput;
 class ModuleAudio;
 class ModulePlayer;
@@ -19,6 +20,7 @@ public:
 	ModuleRender* renderer;
 	ModuleWindow* window;
 	ModuleTextures* textures;
+	ModuleFonts* fonts;
 	ModuleInput* input;
 	ModuleAudio* audio;
 	ModulePlayer* player;
