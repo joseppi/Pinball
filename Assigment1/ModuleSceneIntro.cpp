@@ -204,7 +204,7 @@ update_status ModuleSceneIntro::Update()
 			b2Vec2 positionm(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
 			c->data->body->SetTransform(positionm, 0);
 		}
-		App->renderer->Blit(circle, x, y, NULL, 2.0f, c->data->GetRotation());
+		App->renderer->Blit(circle, x - 6, y - 6, NULL, 2.0f, c->data->GetRotation());
 		if (tp == true)
 		{
 			b2Vec2 position(23.1f, 16.9f);

@@ -85,10 +85,10 @@ update_status ModulePlayer::Update()
 
 	//Blitting flippers-----------------------------------------------
 	flipper_left->GetPosition(position.x, position.y);
-	App->renderer->Blit(tx_flipper_left, position.x - 5, position.y - 7, NULL, 28.0f,  flipper_left->GetRotation());
+	App->renderer->Blit(tx_flipper_left, position.x - 10, position.y - 7, NULL, 28.0f,  flipper_left->GetRotation());
 
 	flipper_right->GetPosition(position.x, position.y);
-	App->renderer->Blit(tx_flipper_right, position.x, position.y - 7, NULL, 28.0f,  flipper_right->GetRotation());
+	App->renderer->Blit(tx_flipper_right, position.x - 6, position.y - 9, NULL, 28.0f,  flipper_right->GetRotation());
 
 	//Blitting spring-------------------------------------------------
 	spring->GetPosition(position.x, position.y);
@@ -124,8 +124,8 @@ void ModulePlayer::setSpring()
 
 void ModulePlayer::setLeftFlipper() 
 {
-	flipper_left = App->physics->CreateRectangle(711, 964, 150, 30, 0.0f, b2_dynamicBody);
-	flipper_pivot_left = App->physics->CreateCircle(711, 964, 10, 0.0f, b2_staticBody);
+	flipper_left = App->physics->CreateRectangle(711, 963, 150, 30, 0.0f, b2_dynamicBody);
+	flipper_pivot_left = App->physics->CreateCircle(711, 963, 10, 0.0f, b2_staticBody);
 
 	b2RevoluteJointDef revDef;
 
@@ -150,8 +150,8 @@ void ModulePlayer::setLeftFlipper()
 
 void ModulePlayer::setRightFlipper() 
 {
-	flipper_right = App->physics->CreateRectangle(999, 964, 150, 30, 0.0f, b2_dynamicBody);
-	flipper_pivot_right = App->physics->CreateCircle(999, 964, 10, 0.0f, b2_staticBody);
+	flipper_right = App->physics->CreateRectangle(999, 963, 150, 30, 0.0f, b2_dynamicBody);
+	flipper_pivot_right = App->physics->CreateCircle(999, 963, 10, 0.0f, b2_staticBody);
 
 	b2RevoluteJointDef revDef;
 
