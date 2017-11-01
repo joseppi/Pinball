@@ -1,3 +1,4 @@
+#include <string.h>
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRender.h"
@@ -7,6 +8,8 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "ModulePlayer.h"
+#include "ModuleWindow.h"
+
 
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -34,8 +37,8 @@ bool ModuleSceneIntro::Start()
 	//bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 	
 	//Sensors
-	sensors = App->physics->CreateCircleSensor(855, 825, 16, 0); 
-	sensors->listener = this;
+	sensors1 = App->physics->CreateCircleSensor(855, 825, 16, 0); 
+	sensors1->listener = this;
 	sensors2 = App->physics->CreateCircleSensor(855, 868, 16, 0);
 	sensors2->listener = this;
 	sensors3 = App->physics->CreateCircleSensor(855, 909, 16, 0);
@@ -127,10 +130,14 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-	{
-		circles.clear();
-	}
+
+	char sscore[64] = "hihi";
+	char lives[4] = "1";
+	char Title[64] = "Score: ";
+	sprintf_s(Title, "%d ", score);
+	//strcat_s(Title,score);
+
+	App->window->SetTitle(Title);
 
 	// Prepare for raycast ------------------------------------------------------
 	iPoint mouse;
@@ -171,20 +178,99 @@ update_status ModuleSceneIntro::Update()
 		c = c->next;
 	}
 
-	b = sensors;
+	b = sensors1;
 
 	if (b != NULL)
 	{
 		int x, y;
-		
 		b->GetPosition(x, y);
+		if (reset == true)
+		{
+			b->body->SetAwake(true);
+			active1 = false;
+		}
 		if (b->body->IsAwake() == false)
 		{
 			App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
 		}
-		if (active == true)
+		if (active1 == true && b->body->IsAwake() == true && active_sensors < 3)
 		{
 			b->body->SetAwake(false);
+			active_sensors++;
+			active1 = false;
+			//App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+		}
+	}
+
+	b = sensors2;
+
+	if (b != NULL)
+	{
+		int x, y;
+
+		b->GetPosition(x, y);
+		if (reset == true)
+		{
+			b->body->SetAwake(true);
+			active2 = false;
+		}
+		if (b->body->IsAwake() == false)
+		{
+			App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+		}
+		if (active2 == true && b->body->IsAwake() == true && active_sensors < 3)
+		{
+			b->body->SetAwake(false);
+			active_sensors++;
+			active2 = false;
+			//App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+		}
+	}
+
+	b = sensors3;
+
+	if (b != NULL)
+	{
+		int x, y;
+
+		b->GetPosition(x, y);
+		if (reset == true)
+		{
+			b->body->SetAwake(true);
+			active3 = false;
+			reset = false;
+		}
+		if (b->body->IsAwake() == false)
+		{
+			App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+		}
+		if (active3 == true && b->body->IsAwake() == true && active_sensors < 3)
+		{
+			b->body->SetAwake(false);
+			active_sensors++;
+			active3 = false;
+			//App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+		}
+	}
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+	{
+		//circles.clear();
+	
+	}
+	time_now = SDL_GetTicks() - start_time;
+	if (active_sensors < 3)
+	{
+	
+		total_time = time_now + (Uint32)(3000.0f);;
+	}
+	else
+	{
+		if (time_now > total_time)
+		{
+			start_time = SDL_GetTicks();
+			score = score + 10;
+			active_sensors = 0;
+			reset = true;
 		}
 	}
 
@@ -236,12 +322,20 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 	App->audio->PlayFx(bonus_fx);
 
-	if(bodyA == sensors)
+	if(bodyA == sensors1)
 	{
-		active = true;
+		active1 = true;
 		//b2Vec2 positionm(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
 		//bodyA->GetPosition(x, y);
 		//App->renderer->DrawCircle(x, y, 50, 200, 100, 100);
+	}
+	if (bodyA == sensors2)
+	{
+		active2 = true;
+	}
+	if (bodyA == sensors3)
+	{
+		active3 = true;
 	}
 	if (bodyA == sensor)
 	{

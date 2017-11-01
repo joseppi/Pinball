@@ -3,6 +3,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "Globals.h"
+#include "SDL\include\SDL_timer.h"
 
 class PhysBody;
 
@@ -22,11 +23,6 @@ public:
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> pinballs;
 	p2List<PhysBody*> walls;
-	PhysBody* sensors;
-	PhysBody* sensors2;
-	PhysBody* sensors3;
-	bool active = false;
-	bool tp = false;
 	
 	//Bumpers
 	p2List<PhysBody*> pops_circular;
@@ -35,11 +31,26 @@ public:
 
 	p2List<PhysBody*> flipper;
 
-	PhysBody* spring;
-	PhysBody* spring2;
-
+	//Sensors
+	PhysBody* sensors1;
+	PhysBody* sensors2;
+	PhysBody* sensors3;
 	PhysBody* sensor;
 	bool sensed;
+	bool tp = false;
+	bool active1 = false;
+	bool active2 = false;
+	bool active3 = false;
+	int active_sensors = 0;
+	int score = 0;
+	int time_now;
+	int start_time;
+	int total_time = NULL;
+	bool reset = false;
+	
+
+	PhysBody* spring;
+	PhysBody* spring2;
 
 	SDL_Texture* circle;
 	SDL_Texture* box;
