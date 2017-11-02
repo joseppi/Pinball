@@ -174,8 +174,6 @@ update_status ModuleSceneIntro::Update()
 		lives = 0;
 	}
 
-
-
 	//RED SENSORS
 	b = sensors1;
 
@@ -254,7 +252,6 @@ update_status ModuleSceneIntro::Update()
 			//App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
 		}
 	}
-
 
 	//--Delay
 	time_now1 = SDL_GetTicks() - start_time1;
@@ -411,7 +408,6 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		}
 	}
 	
-
 	if (bodyA == tp_sensor)
 	{
 		tp = true;
