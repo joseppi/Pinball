@@ -34,7 +34,7 @@ private:
 
 	Mix_Music*			music;
 	p2List<Mix_Chunk*>	fx;
-	uint volume = 128;
+	uint volume = 80;
 };
 
 #endif // __ModuleAudio_H__
