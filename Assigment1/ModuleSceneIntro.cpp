@@ -146,7 +146,7 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-	p2SString title("Pinball Score: %d  Lives: %d", score, lives); 
+	p2SString title("Pinball Score: %d  Lives: %d", score, lives);
 	App->window->SetTitle(title.GetString());
 
 	// All draw functions ------------------------------------------------------
@@ -162,6 +162,7 @@ update_status ModuleSceneIntro::Update()
 		App->renderer->Blit(structure, x, y, NULL, 1.0f, c->data->GetRotation());
 		c = c->next;
 	}
+
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		lives = 3;
@@ -172,125 +173,11 @@ update_status ModuleSceneIntro::Update()
 		lives = 0;
 	}
 	//RED SENSORS
-	{
-		b = sensors1;
+	App->player->setSensorCirclesRed(sensors1, texture_sensor, active1, active_sensors, reset_red_sensors);
+	App->player->setSensorCirclesRed(sensors2, texture_sensor, active2, active_sensors, reset_red_sensors);
+	App->player->setSensorCirclesRed(sensors3, texture_sensor, active3, active_sensors, reset_red_sensors);
 
-		if (b != NULL)
-		{
-			int x, y;
-			b->GetPosition(x, y);
-			if (reset_red_sensors == true)
-			{
-				b->body->SetAwake(true);
-				active1 = false;
-			}
-			if (b->body->IsAwake() == false)
-			{
-				App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
-			}
-			if (active1 == true && b->body->IsAwake() == true && active_sensors < 3)
-			{
-				b->body->SetAwake(false);
-				App->audio->PlayFx(App->scene_intro->bouncers_fx);
-				active_sensors++;
-				active1 = false;
-			}
-		}
-
-		b = sensors2;
-
-		if (b != NULL)
-		{
-			int x, y;
-
-			b->GetPosition(x, y);
-			if (reset_red_sensors == true)
-			{
-				b->body->SetAwake(true);
-				active2 = false;
-			}
-			if (b->body->IsAwake() == false)
-			{
-				App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
-			}
-			if (active2 == true && b->body->IsAwake() == true && active_sensors < 3)
-			{
-				b->body->SetAwake(false);
-				App->audio->PlayFx(App->scene_intro->bouncers_fx);
-				active_sensors++;
-				active2 = false;
-			}
-		}
-
-		b = sensors3;
-
-		if (b != NULL)
-		{
-			int x, y;
-
-			b->GetPosition(x, y);
-			if (reset_red_sensors == true)
-			{
-				b->body->SetAwake(true);
-				active3 = false;
-				reset_red_sensors = false;
-			}
-			if (b->body->IsAwake() == false)
-			{
-				App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
-			}
-			if (active3 == true && b->body->IsAwake() == true && active_sensors < 3)
-			{
-				b->body->SetAwake(false);
-				App->audio->PlayFx(App->scene_intro->bouncers_fx);//Canviar so
-				active_sensors++;
-				active3 = false;
-			}
-		}
-	}
-
-
-
-	//BOUNCERS (CIRCLES) SENSORS
-	/*{
-		b = sensor_circ1;
-
-		if (b != NULL)
-		{
-			int x, y;
-			b->GetPosition(x, y);
-			if (b->body->IsAwake() == false)
-			{
-				App->renderer->Blit(texture_sensor_circs, x + 5, y + 3, NULL, 2.0f);
-			}
-			if (active1_circ1 == true && b->body->IsAwake() == true)
-			{
-				b->body->SetAwake(false);
-				App->audio->PlayFx(App->scene_intro->bouncers_fx);
-			}
-		}
-	}*/
-
-	App->player->setSensor(sensor_circ1, texture_sensor_circs, active1_circ1);
-
-	//BOUNCERS (CIRLCES) Delay
-	time_now2 = SDL_GetTicks() - start_time2;
-	if (active1_circ1 == false)
-	{
-		total_time2 = time_now2 + (Uint32)(250.0f);;
-	}
-	else
-	{
-		if (time_now2 > total_time2)
-		{
-			start_time2 = SDL_GetTicks();
-			score += 10;
-			active1_circ1 = false;
-			b->body->SetAwake(true);
-		}
-	}
-
-	//red sensors add points delay
+	//--Delay
 	time_now1 = SDL_GetTicks() - start_time1;
 	if (active_sensors < 3)
 	{
@@ -307,15 +194,53 @@ update_status ModuleSceneIntro::Update()
 		}
 	}
 
+	//BOUNCERS (CIRCLES) SENSORS
+	App->player->setSensorCircles(sensor_circ1, texture_sensor_circs, active_circ1);
+	App->player->setSensorCircles(sensor_circ2, texture_sensor_circs, active_circ2);
+	App->player->setSensorCircles(sensor_circ3, texture_sensor_circs, active_circ3);
+
+	//--Delay 1
+	time_now_circ1 = SDL_GetTicks() - start_time_circ1;
+	if (active_circ1 == false){
+		total_time_circ1 = time_now_circ1 + (Uint32)(250.0f);;
+	}
+	else
+	{
+		if (time_now_circ1 > total_time_circ1)
+		{ start_time_circ1 = SDL_GetTicks(); score += 100; active_circ1 = false; b->body->SetAwake(true);}
+	}
+
+	//--Delay 2
+	time_now_circ2 = SDL_GetTicks() - start_time_circ2;
+	if (active_circ2 == false) {
+		total_time_circ2 = time_now_circ2 + (Uint32)(250.0f);;
+	}
+	else
+	{
+		if (time_now_circ2 > total_time_circ2) 
+		{ start_time_circ2 = SDL_GetTicks(); score += 100; active_circ2 = false; b->body->SetAwake(true); }
+	}
+
+	//--Delay 3
+	time_now_circ3 = SDL_GetTicks() - start_time_circ3;
+	if (active_circ3 == false) {
+		total_time_circ3 = time_now_circ3 + (Uint32)(250.0f);;
+	}
+	else
+	{
+		if (time_now_circ3 > total_time_circ3) 
+		{ start_time_circ3 = SDL_GetTicks(); score += 100; active_circ3 = false; b->body->SetAwake(true); }
+	}
+
 	c = circles.getFirst();
 
 	while (c != NULL)
 	{
-		int x, y; 
+		int x, y;
 		c->data->GetPosition(x, y);
 		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
-			
+
 			b2Vec2 position(PIXEL_TO_METERS(643), PIXEL_TO_METERS(795));
 			c->data->body->SetLinearVelocity({ 0,0 });
 			c->data->body->SetAngularVelocity(0);
@@ -375,10 +300,19 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	}
 
 	//BOUNCERS (CIRCLES) SENSORS
-	
-	if (bodyA == sensor_circ1)
 	{
-		active1_circ1 = true;
+		if (bodyA == sensor_circ1)
+		{
+			active_circ1 = true;
+		}
+		if (bodyA == sensor_circ2)
+		{
+			active_circ2 = true;
+		}
+		if (bodyA == sensor_circ3)
+		{
+			active_circ3 = true;
+		}
 	}
 	
 
