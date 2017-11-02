@@ -228,7 +228,7 @@ void ModulePlayer::setSensorCircles(PhysBody* sensor, SDL_Texture* texture, bool
 		App->scene_intro->b->GetPosition(x, y);
 		if (App->scene_intro->b->body->IsAwake() == false)
 		{
-			App->renderer->Blit(texture, x, y, NULL, 2.0f);
+			App->renderer->Blit(texture, x + 4, y + 4, NULL, 2.0f);
 		}
 		if (active == true && App->scene_intro->b->body->IsAwake() == true)
 		{
