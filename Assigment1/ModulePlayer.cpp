@@ -176,15 +176,3 @@ void ModulePlayer::setRightFlipper()
 
 	revolute_joint_right = (b2RevoluteJoint*)App->physics->world->CreateJoint(&revDef);
 }
-
-//void ModulePlayer::OnCollision(PhysBody * body_A, PhysBody * body_B)
-//{
-//	if (body_B->body->GetType() == b2_staticBody){
-//		App->audio->PlayFx(App->scene_intro->bouncers_fx);
-//
-//	}
-//	if ((body_B == flipper_left || body_B == flipper_right) && (revolute_joint_left->IsMotorEnabled() || revolute_joint_right->IsMotorEnabled()))
-//	{
-//		App->audio->PlayFx(App->scene_intro->flipper_fx);
-//	}
-//}

@@ -44,11 +44,11 @@ bool ModuleSceneIntro::Start()
 	sensors3->listener = this;
 
 	//BOUNCERS (CIRCLES) SENSORS
-	sensor_circ1 = App->physics->CreateCircleSensor(212, 295, 45, 0);
+	sensor_circ1 = App->physics->CreateCircleSensor(212, 295, 50, 0);
 	sensor_circ1->listener = this;
-	sensor_circ2 = App->physics->CreateCircleSensor(473, 316, 45, 0);
+	sensor_circ2 = App->physics->CreateCircleSensor(473, 316, 50, 0);
 	sensor_circ2->listener = this;
-	sensor_circ3 = App->physics->CreateCircleSensor(342, 509, 45, 0);
+	sensor_circ3 = App->physics->CreateCircleSensor(342, 509, 50, 0);
 	sensor_circ3->listener = this;
 
 	tp_sensor = App->physics->CreateRectangleSensor(310, 1275, 590, 400);
@@ -246,6 +246,7 @@ update_status ModuleSceneIntro::Update()
 		//insta lose
 		lives = 0;
 	}
+
 	//BOUNCERS (CIRCLES) SENSORS
 	{
 		b = sensor_circ1;
@@ -256,7 +257,7 @@ update_status ModuleSceneIntro::Update()
 			b->GetPosition(x, y);
 			if (b->body->IsAwake() == false)
 			{
-				App->renderer->Blit(texture_sensor_circs, x, y, NULL, 2.0f);
+				App->renderer->Blit(texture_sensor_circs, x + 5, y + 3, NULL, 2.0f);
 			}
 			if (active1_circ1 == true && b->body->IsAwake() == true)
 			{
@@ -265,11 +266,11 @@ update_status ModuleSceneIntro::Update()
 			}
 		}
 	}
-	//pop delay
+	//BOUNCERS (CIRLCES) Delay
 	time_now2 = SDL_GetTicks() - start_time2;
 	if (active1_circ1 == false)
 	{
-		total_time2 = time_now2 + (Uint32)(1000.0f);;
+		total_time2 = time_now2 + (Uint32)(250.0f);;
 	}
 	else
 	{
@@ -350,7 +351,6 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	int x, y;
 
-	App->audio->PlayFx(bonus_fx);
     //RED SENSORS
 	{
 		if (bodyA == sensors1)
