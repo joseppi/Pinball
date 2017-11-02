@@ -195,7 +195,7 @@ update_status ModuleSceneIntro::Update()
 			b->body->SetAwake(false);
 			active_sensors++;
 			active1 = false;
-			//App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+			App->audio->PlayFx(red_sensor_fx);
 		}
 	}
 
@@ -222,7 +222,7 @@ update_status ModuleSceneIntro::Update()
 			b->body->SetAwake(false);
 			active_sensors++;
 			active2 = false;
-			//App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+			App->audio->PlayFx(red_sensor_fx);
 		}
 	}
 
@@ -249,7 +249,7 @@ update_status ModuleSceneIntro::Update()
 			b->body->SetAwake(false);
 			active_sensors++;
 			active3 = false;
-			//App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+			App->audio->PlayFx(red_sensor_fx);
 		}
 	}
 
