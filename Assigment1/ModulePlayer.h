@@ -46,5 +46,5 @@ private:
 	b2RevoluteJoint* revolute_joint_right;
 
 public:
-	void ModulePlayer::setSensorCircles(PhysBody* sensor, SDL_Texture* texture, bool active);
+	void ModulePlayer::setSensorCircles(PhysBody* sensor, SDL_Texture* texture, bool active, int _x, int _y);
 };

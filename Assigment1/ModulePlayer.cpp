@@ -220,7 +220,7 @@ void ModulePlayer::setRightFlipper()
 	revolute_joint_right = (b2RevoluteJoint*)App->physics->world->CreateJoint(&revDef);
 }
 
-void ModulePlayer::setSensorCircles(PhysBody* sensor, SDL_Texture* texture, bool active)
+void ModulePlayer::setSensorCircles(PhysBody* sensor, SDL_Texture* texture, bool active, int _x, int _y)
 {
 	App->scene_intro->b = sensor;
 
@@ -230,7 +230,7 @@ void ModulePlayer::setSensorCircles(PhysBody* sensor, SDL_Texture* texture, bool
 		App->scene_intro->b->GetPosition(x, y);
 		if (App->scene_intro->b->body->IsAwake() == false)
 		{
-			App->renderer->Blit(texture, x, y, NULL, 2.0f);
+			App->renderer->Blit(texture, x + _x, y + _y, NULL, 2.0f);
 		}
 		if (active == true && App->scene_intro->b->body->IsAwake() == true)
 		{

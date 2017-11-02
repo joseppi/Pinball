@@ -270,9 +270,9 @@ update_status ModuleSceneIntro::Update()
 	}
 
 	//BOUNCERS (CIRCLES) SENSORS
-	App->player->setSensorCircles(sensor_circ1, texture_sensor_circs, active_circ1);
-	App->player->setSensorCircles(sensor_circ2, texture_sensor_circs, active_circ2);
-	App->player->setSensorCircles(sensor_circ3, texture_sensor_circs, active_circ3);
+	App->player->setSensorCircles(sensor_circ1, texture_sensor_circs, active_circ1, 5, 5);
+	App->player->setSensorCircles(sensor_circ2, texture_sensor_circs, active_circ2, 5, 5);
+	App->player->setSensorCircles(sensor_circ3, texture_sensor_circs, active_circ3, 5, 5);
 
 	//--Delay 1
 	b = sensor_circ1;

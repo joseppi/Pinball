@@ -66,9 +66,9 @@ public:
 	int start_time1, start_time2 = NULL;
 	int total_time1, total_time2 = NULL;
 
-	int time_now_circ1, time_now_circ2, time_now_circ3;
-	int start_time_circ1, start_time_circ2, start_time_circ3;
-	int total_time_circ1, total_time_circ2, total_time_circ3;
+	int time_now_circ1, time_now_circ2, time_now_circ3 = NULL;
+	int start_time_circ1, start_time_circ2, start_time_circ3 = NULL;
+	int total_time_circ1, total_time_circ2, total_time_circ3 = NULL;
 
 	bool reset = false;
 	bool reset_pops = false;
