@@ -42,8 +42,7 @@ public:
 	PhysBody* sensors3;
 
 	PhysBody* tp_sensor;
-	PhysBody* spring_sensor;
-
+	
 	PhysBody* sensor_circ1;
 	PhysBody* sensor_circ2;
 	PhysBody* sensor_circ3;
