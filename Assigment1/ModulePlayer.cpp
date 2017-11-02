@@ -66,24 +66,24 @@ update_status ModulePlayer::Update()
 	{
 		revolute_joint_left->EnableMotor(true);
 		App->audio->PlayFx(App->scene_intro->flipper_fx);
-		App->scene_intro->pops_mini.getFirst()->data->body->SetTransform({ PIXEL_TO_METERS(554), PIXEL_TO_METERS(725) }, 0);
+		App->scene_intro->pops_mini.getFirst()->data->body->SetTransform({ PIXEL_TO_METERS(554), PIXEL_TO_METERS(670) }, 0);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
 	{
 		revolute_joint_left->EnableMotor(false);
-		App->scene_intro->pops_mini.getFirst()->data->body->SetTransform({ PIXEL_TO_METERS(554), PIXEL_TO_METERS(1725) }, 0);
+		App->scene_intro->pops_mini.getFirst()->data->body->SetTransform({ PIXEL_TO_METERS(554), PIXEL_TO_METERS(1670) }, 0);
 	}
 	//RIGHT FLIPPER
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
 	{
 		revolute_joint_right->EnableMotor(true);
 		App->audio->PlayFx(App->scene_intro->flipper_fx);
-		App->scene_intro->pops_mini.getLast()->data->body->SetTransform({ PIXEL_TO_METERS(1093), PIXEL_TO_METERS(758) }, 0);
+		App->scene_intro->pops_mini.getLast()->data->body->SetTransform({ PIXEL_TO_METERS(1093), PIXEL_TO_METERS(703) }, 0);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
 	{
 		revolute_joint_right->EnableMotor(false);
-		App->scene_intro->pops_mini.getLast()->data->body->SetTransform({ PIXEL_TO_METERS(1093), PIXEL_TO_METERS(1758) }, 0);
+		App->scene_intro->pops_mini.getLast()->data->body->SetTransform({ PIXEL_TO_METERS(1093), PIXEL_TO_METERS(1703) }, 0);
 	}
 
 	//Blitting flippers-----------------------------------------------
@@ -101,8 +101,8 @@ update_status ModulePlayer::Update()
 
 void ModulePlayer::setSpring()
 {
-	spring = App->physics->CreateRectangle(1156, 800, 41, 100, 0.0f, b2_dynamicBody);
-	spring_pivot = App->physics->CreateRectangle(1156, 980, 41, 30, 0.0f, b2_staticBody);
+	spring = App->physics->CreateRectangle(1156, 745, 41, 100, 0.0f, b2_dynamicBody);
+	spring_pivot = App->physics->CreateRectangle(1156, 925, 41, 30, 0.0f, b2_staticBody);
 
 	b2PrismaticJointDef PrismDef;
 
@@ -127,8 +127,8 @@ void ModulePlayer::setSpring()
 
 void ModulePlayer::setLeftFlipper() 
 {
-	flipper_left = App->physics->CreateRectangle(711, 963, 150, 30, 0.0f, b2_dynamicBody);
-	flipper_pivot_left = App->physics->CreateCircle(711, 963, 10, 0.0f, b2_staticBody);
+	flipper_left = App->physics->CreateRectangle(711, 908, 150, 30, 0.0f, b2_dynamicBody);
+	flipper_pivot_left = App->physics->CreateCircle(711, 908, 10, 0.0f, b2_staticBody);
 
 	b2RevoluteJointDef revDef;
 
@@ -142,7 +142,7 @@ void ModulePlayer::setLeftFlipper()
 
 	revDef.enableLimit = true;
 	revDef.upperAngle = 28 * DEGTORAD;
-	revDef.lowerAngle = -28 * DEGTORAD;
+	revDef.lowerAngle = -26 * DEGTORAD;
 
 	revDef.motorSpeed = 5000.0f * DEGTORAD;
 	revDef.maxMotorTorque = 1750.0f;
@@ -153,8 +153,8 @@ void ModulePlayer::setLeftFlipper()
 
 void ModulePlayer::setRightFlipper() 
 {
-	flipper_right = App->physics->CreateRectangle(999, 963, 150, 30, 0.0f, b2_dynamicBody);
-	flipper_pivot_right = App->physics->CreateCircle(999, 963, 10, 0.0f, b2_staticBody);
+	flipper_right = App->physics->CreateRectangle(999, 908, 150, 30, 0.0f, b2_dynamicBody);
+	flipper_pivot_right = App->physics->CreateCircle(999, 908, 10, 0.0f, b2_staticBody);
 
 	b2RevoluteJointDef revDef;
 
@@ -167,7 +167,7 @@ void ModulePlayer::setRightFlipper()
 	revDef.collideConnected = false;
 
 	revDef.enableLimit = true;
-	revDef.upperAngle = 28 * DEGTORAD;
+	revDef.upperAngle = 26 * DEGTORAD;
 	revDef.lowerAngle = -28 * DEGTORAD;
 
 	revDef.motorSpeed = -5000.0f * DEGTORAD;
