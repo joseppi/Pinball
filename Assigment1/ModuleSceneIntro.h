@@ -19,6 +19,7 @@ public:
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
 public:
+	p2List_item<PhysBody*>* c;
 	PhysBody* b;
 
 	//----------------------------------------------------

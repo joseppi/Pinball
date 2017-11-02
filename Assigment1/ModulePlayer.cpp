@@ -181,4 +181,18 @@ void ModulePlayer::setSensor(PhysBody* sensor, SDL_Texture* texture, bool active
 {
 	App->scene_intro->b = sensor;
 
+	if (App->scene_intro->b != NULL)
+	{
+		int x, y;
+		App->scene_intro->b->GetPosition(x, y);
+		if (App->scene_intro->b->body->IsAwake() == false)
+		{
+			App->renderer->Blit(texture, x, y, NULL, 2.0f);
+		}
+		if (active == true && App->scene_intro->b->body->IsAwake() == true)
+		{
+			App->scene_intro->b->body->SetAwake(false);
+			App->audio->PlayFx(App->scene_intro->bouncers_fx);
+		}
+	}
 }
