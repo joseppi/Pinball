@@ -280,6 +280,15 @@ update_status ModuleSceneIntro::Update()
 		c = c->next;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN)
+		App->audio->RiseVolume();
+
+	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN)
+		App->audio->LowerVolume();
+
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+		App->audio->MuteVolume();
+
 
 	return UPDATE_CONTINUE;
 }
