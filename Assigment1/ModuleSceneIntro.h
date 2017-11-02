@@ -20,7 +20,6 @@ public:
 
 public:
 	p2List<PhysBody*> circles;
-	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> pinballs;
 	p2List<PhysBody*> walls;
 	
@@ -36,7 +35,8 @@ public:
 	PhysBody* sensors1;
 	PhysBody* sensors2;
 	PhysBody* sensors3;
-	PhysBody* sensor;
+	PhysBody* tp_sensor;
+	PhysBody* spring_sensor;
 	bool sensed;
 	bool tp = false;
 	bool active1 = false;
@@ -49,12 +49,7 @@ public:
 	int total_time = NULL;
 	bool reset = false;
 	
-
-	PhysBody* spring;
-	PhysBody* spring2;
-
 	SDL_Texture* circle;
-	SDL_Texture* box;
 	SDL_Texture* structure;
 	SDL_Texture* texture_sensor;
 	uint bonus_fx;

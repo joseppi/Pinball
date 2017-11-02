@@ -14,7 +14,7 @@
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	circle = box = structure = NULL;
+	circle = structure = NULL;
 	ray_on = false;
 	sensed = false;
 }
@@ -33,7 +33,6 @@ bool ModuleSceneIntro::Start()
 	structure = App->textures->Load("pinball/Pinball_No_Margins.png");
 	circle = App->textures->Load("pinball/Ball.png");
 	texture_sensor = App->textures->Load("pinball/sensor_red.png");
-	//box = App->textures->Load("pinball/crate.png");
 	//bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 	
 	//Sensors
@@ -43,8 +42,8 @@ bool ModuleSceneIntro::Start()
 	sensors2->listener = this;
 	sensors3 = App->physics->CreateCircleSensor(855, 909, 16, 0);
 	sensors3->listener = this;
-	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
-	sensor->listener = this;
+	tp_sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.7, 800, 400);
+	tp_sensor->listener = this;
 
 	//Draw Ball
 	circles.add(App->physics->CreateCircle(1150, 800, 16, 0.15f, b2_dynamicBody));
@@ -140,14 +139,6 @@ update_status ModuleSceneIntro::Update()
 
 	App->window->SetTitle(Title);
 
-	// Prepare for raycast ------------------------------------------------------
-	iPoint mouse;
-	mouse.x = App->input->GetMouseX();
-	mouse.y = App->input->GetMouseY();
-	int ray_hit = ray.DistanceTo(mouse);
-
-	fVector normal(0.0f, 0.0f);
-
 	// All draw functions ------------------------------------------------------
 	p2List_item<PhysBody*>* c = pinballs.getFirst();
 	PhysBody* b;
@@ -160,22 +151,6 @@ update_status ModuleSceneIntro::Update()
 		c->data->GetPosition(x, y);
 
 		App->renderer->Blit(structure, x, y, NULL, 1.0f, c->data->GetRotation());
-		c = c->next;
-	}
-
-	c = boxes.getFirst();
-
-	while(c != NULL)
-	{
-		int x, y;
-		c->data->GetPosition(x, y);
-		App->renderer->Blit(box, x, y, NULL, 1.0f, c->data->GetRotation());
-		if(ray_on)
-		{
-			int hit = c->data->RayCast(ray.x, ray.y, mouse.x, mouse.y, normal.x, normal.y);
-			if(hit >= 0)
-				ray_hit = hit;
-		}
 		c = c->next;
 	}
 
@@ -197,9 +172,9 @@ update_status ModuleSceneIntro::Update()
 		if (active1 == true && b->body->IsAwake() == true && active_sensors < 3)
 		{
 			b->body->SetAwake(false);
+			App->audio->PlayFx(App->scene_intro->bouncers_fx);
 			active_sensors++;
 			active1 = false;
-			//App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
 		}
 	}
 
@@ -222,9 +197,9 @@ update_status ModuleSceneIntro::Update()
 		if (active2 == true && b->body->IsAwake() == true && active_sensors < 3)
 		{
 			b->body->SetAwake(false);
+			App->audio->PlayFx(App->scene_intro->bouncers_fx);
 			active_sensors++;
 			active2 = false;
-			//App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
 		}
 	}
 
@@ -248,21 +223,20 @@ update_status ModuleSceneIntro::Update()
 		if (active3 == true && b->body->IsAwake() == true && active_sensors < 3)
 		{
 			b->body->SetAwake(false);
+			App->audio->PlayFx(App->scene_intro->bouncers_fx);//Canviar so
 			active_sensors++;
 			active3 = false;
-			//App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
 		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 	{
-		//circles.clear();
-	
+		//insta lose
 	}
+
 	time_now = SDL_GetTicks() - start_time;
 	if (active_sensors < 3)
 	{
-	
-		total_time = time_now + (Uint32)(3000.0f);;
+		total_time = time_now + (Uint32)(1000.0f);;
 	}
 	else
 	{
@@ -284,6 +258,8 @@ update_status ModuleSceneIntro::Update()
 		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
 			b2Vec2 position(23.1f, 16.9f);
+			c->data->body->SetLinearVelocity({ 0,0 });
+			c->data->body->SetAngularVelocity(0);
 			c->data->body->SetTransform(position, 0);
 		}
 		if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
@@ -295,24 +271,14 @@ update_status ModuleSceneIntro::Update()
 		if (tp == true)
 		{
 			b2Vec2 position(23.1f, 16.9f);
+			c->data->body->SetLinearVelocity({ 0,0 });
+			c->data->body->SetAngularVelocity(0);
 			c->data->body->SetTransform(position, 0);
 			tp = false;
 		}
 		c = c->next;
 	}
 
-
-
-	// ray -----------------
-	if(ray_on == true)
-	{
-		fVector destination(mouse.x-ray.x, mouse.y-ray.y);
-		destination.Normalize();
-		destination *= ray_hit;
-		App->renderer->DrawLine(ray.x, ray.y, ray.x + destination.x, ray.y + destination.y, 255, 255, 255);
-		if(normal.x != 0.0f)
-			App->renderer->DrawLine(ray.x + destination.x, ray.y + destination.y, ray.x + destination.x + normal.x * 25.0f, ray.y + destination.y + normal.y * 25.0f, 100, 255, 100);
-	}
 
 	return UPDATE_CONTINUE;
 }
@@ -326,9 +292,6 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	if(bodyA == sensors1)
 	{
 		active1 = true;
-		//b2Vec2 positionm(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
-		//bodyA->GetPosition(x, y);
-		//App->renderer->DrawCircle(x, y, 50, 200, 100, 100);
 	}
 	if (bodyA == sensors2)
 	{
@@ -338,10 +301,11 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	{
 		active3 = true;
 	}
-	if (bodyA == sensor)
+	if (bodyA == tp_sensor)
 	{
 		tp = true;
 	}
+
 
 	if(bodyB)
 	{
