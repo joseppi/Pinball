@@ -52,7 +52,7 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update()
 {
 	//SPRING
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->scene_intro->lives > 0)
 	{
 		prismatic_joint->EnableMotor(true);
 		App->audio->PlayFx(App->scene_intro->spring_fx);
@@ -66,7 +66,7 @@ update_status ModulePlayer::Update()
 	prismatic_joint->SetMaxMotorForce(3050 + rand() % 1000);
 
 	//LEFT FLIPPER
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN && App->scene_intro->lives > 0)
 	{
 		revolute_joint_left->EnableMotor(true);
 		App->audio->PlayFx(App->scene_intro->flipper_fx);
@@ -78,7 +78,7 @@ update_status ModulePlayer::Update()
 		App->scene_intro->pops_mini.getFirst()->data->body->SetTransform({ PIXEL_TO_METERS(42), PIXEL_TO_METERS(1670) }, 0);
 	}
 	//RIGHT FLIPPER
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN && App->scene_intro->lives > 0)
 	{
 		revolute_joint_right->EnableMotor(true);
 		App->audio->PlayFx(App->scene_intro->flipper_fx);
