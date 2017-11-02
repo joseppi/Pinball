@@ -33,15 +33,26 @@ bool ModuleSceneIntro::Start()
 	structure = App->textures->Load("pinball/Pinball_No_Margins.png");
 	circle = App->textures->Load("pinball/Ball.png");
 	texture_sensor = App->textures->Load("pinball/sensor_red.png");
+
+	texture_sensor_circs = App->textures->Load("pinball/sensor_circs.png");
 	//bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 	
-	//Sensors
+	//RED Sensors
 	sensors1 = App->physics->CreateCircleSensor(855, 770, 16, 0); 
 	sensors1->listener = this;
 	sensors2 = App->physics->CreateCircleSensor(855, 813, 16, 0);
 	sensors2->listener = this;
 	sensors3 = App->physics->CreateCircleSensor(855, 854, 16, 0);
 	sensors3->listener = this;
+
+	//BOUNCERS (CIRCLES) SENSORS
+	sensor_circ1 = App->physics->CreateCircleSensor(724, 295, 45, 0);
+	sensor_circ1->listener = this;
+	sensor_circ2 = App->physics->CreateCircleSensor(985, 316, 45, 0);
+	sensor_circ2->listener = this;
+	sensor_circ3 = App->physics->CreateCircleSensor(854, 509, 45, 0);
+	sensor_circ3->listener = this;
+
 	tp_sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.645f, 800, 400);
 	tp_sensor->listener = this;
 
@@ -124,13 +135,17 @@ bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
 
+	App->textures->Unload(structure);
+	App->textures->Unload(circle);
+	App->textures->Unload(texture_sensor);
+	App->textures->Unload(texture_sensor_circs);
+
 	return true;
 }
 
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-
 	char sscore[64] = "hihi";
 	char lives[4] = "1";
 	char Title[64] = "Score: ";
@@ -154,78 +169,108 @@ update_status ModuleSceneIntro::Update()
 		c = c->next;
 	}
 
-	b = sensors1;
-
-	if (b != NULL)
+	//RED SENSORS
 	{
-		int x, y;
-		b->GetPosition(x, y);
-		if (reset == true)
+		b = sensors1;
+
+		if (b != NULL)
 		{
-			b->body->SetAwake(true);
-			active1 = false;
+			int x, y;
+			b->GetPosition(x, y);
+			if (reset == true)
+			{
+				b->body->SetAwake(true);
+				active1 = false;
+			}
+			if (b->body->IsAwake() == false)
+			{
+				App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+			}
+			if (active1 == true && b->body->IsAwake() == true && active_sensors < 3)
+			{
+				b->body->SetAwake(false);
+				App->audio->PlayFx(App->scene_intro->bouncers_fx);
+				active_sensors++;
+				active1 = false;
+			}
 		}
-		if (b->body->IsAwake() == false)
+
+		b = sensors2;
+
+		if (b != NULL)
 		{
-			App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+			int x, y;
+
+			b->GetPosition(x, y);
+			if (reset == true)
+			{
+				b->body->SetAwake(true);
+				active2 = false;
+			}
+			if (b->body->IsAwake() == false)
+			{
+				App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+			}
+			if (active2 == true && b->body->IsAwake() == true && active_sensors < 3)
+			{
+				b->body->SetAwake(false);
+				App->audio->PlayFx(App->scene_intro->bouncers_fx);
+				active_sensors++;
+				active2 = false;
+			}
 		}
-		if (active1 == true && b->body->IsAwake() == true && active_sensors < 3)
+
+		b = sensors3;
+
+		if (b != NULL)
 		{
-			b->body->SetAwake(false);
-			App->audio->PlayFx(App->scene_intro->bouncers_fx);
-			active_sensors++;
-			active1 = false;
+			int x, y;
+
+			b->GetPosition(x, y);
+			if (reset == true)
+			{
+				b->body->SetAwake(true);
+				active3 = false;
+				reset = false;
+			}
+			if (b->body->IsAwake() == false)
+			{
+				App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+			}
+			if (active3 == true && b->body->IsAwake() == true && active_sensors < 3)
+			{
+				b->body->SetAwake(false);
+				App->audio->PlayFx(App->scene_intro->bouncers_fx);//Canviar so
+				active_sensors++;
+				active3 = false;
+			}
 		}
 	}
 
-	b = sensors2;
-
-	if (b != NULL)
+	//BOUNCERS (CIRCLES) SENSORS
 	{
-		int x, y;
+		b = sensor_circ1;
 
-		b->GetPosition(x, y);
-		if (reset == true)
+		if (b != NULL)
 		{
-			b->body->SetAwake(true);
-			active2 = false;
-		}
-		if (b->body->IsAwake() == false)
-		{
-			App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
-		}
-		if (active2 == true && b->body->IsAwake() == true && active_sensors < 3)
-		{
-			b->body->SetAwake(false);
-			App->audio->PlayFx(App->scene_intro->bouncers_fx);
-			active_sensors++;
-			active2 = false;
-		}
-	}
-
-	b = sensors3;
-
-	if (b != NULL)
-	{
-		int x, y;
-
-		b->GetPosition(x, y);
-		if (reset == true)
-		{
-			b->body->SetAwake(true);
-			active3 = false;
-			reset = false;
-		}
-		if (b->body->IsAwake() == false)
-		{
-			App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
-		}
-		if (active3 == true && b->body->IsAwake() == true && active_sensors < 3)
-		{
-			b->body->SetAwake(false);
-			App->audio->PlayFx(App->scene_intro->bouncers_fx);//Canviar so
-			active_sensors++;
-			active3 = false;
+			int x, y;
+			b->GetPosition(x, y);
+			if (reset == true)
+			{
+				b->body->SetAwake(true);
+				active1_circ1 = false;
+			}
+			if (b->body->IsAwake() == false)
+			{
+				App->renderer->Blit(texture_sensor_circs, x, y, NULL, 2.0f);
+			}
+			if (active1_circ1 == true && b->body->IsAwake() == true)
+			{
+				b->body->SetAwake(false);
+				App->audio->PlayFx(App->scene_intro->bouncers_fx);
+				
+				active1_circ1 = false;
+			}
 		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
@@ -243,7 +288,7 @@ update_status ModuleSceneIntro::Update()
 		if (time_now > total_time)
 		{
 			start_time = SDL_GetTicks();
-			score = score + 10;
+			score += 10;
 			active_sensors = 0;
 			reset = true;
 		}
@@ -280,7 +325,6 @@ update_status ModuleSceneIntro::Update()
 		c = c->next;
 	}
 
-
 	return UPDATE_CONTINUE;
 }
 
@@ -289,24 +333,34 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	int x, y;
 
 	App->audio->PlayFx(bonus_fx);
+    //RED SENSORS
+	{
+		if (bodyA == sensors1)
+		{
+			active1 = true;
+		}
+		if (bodyA == sensors2)
+		{
+			active2 = true;
+		}
+		if (bodyA == sensors3)
+		{
+			active3 = true;
+		}
+	}
 
-	if(bodyA == sensors1)
+	//BOUNCERS (CIRCLES) SENSORS
 	{
-		active1 = true;
+		if (bodyA == sensor_circ1)
+		{
+			active1_circ1 = true;
+		}
 	}
-	if (bodyA == sensors2)
-	{
-		active2 = true;
-	}
-	if (bodyA == sensors3)
-	{
-		active3 = true;
-	}
+
 	if (bodyA == tp_sensor)
 	{
 		tp = true;
 	}
-
 
 	if(bodyB)
 	{

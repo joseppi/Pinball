@@ -35,14 +35,26 @@ public:
 	PhysBody* sensors1;
 	PhysBody* sensors2;
 	PhysBody* sensors3;
+
 	PhysBody* tp_sensor;
 	PhysBody* spring_sensor;
-	bool sensed;
-	bool tp = false;
+
+	PhysBody* sensor_circ1;
+	PhysBody* sensor_circ2;
+	PhysBody* sensor_circ3;
+	
 	bool active1 = false;
 	bool active2 = false;
 	bool active3 = false;
 	int active_sensors = 0;
+
+	bool active1_circ1 = false;
+	bool active1_circ2 = false;
+	bool active1_circ3 = false;
+
+	bool sensed;
+	bool tp = false;
+
 	int score = 0;
 	int time_now;
 	int start_time;
@@ -52,6 +64,9 @@ public:
 	SDL_Texture* circle;
 	SDL_Texture* structure;
 	SDL_Texture* texture_sensor;
+
+	SDL_Texture* texture_sensor_circs;
+
 	uint bonus_fx;
 	p2Point<int> ray;
 	bool ray_on;
