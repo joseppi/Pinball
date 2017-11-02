@@ -59,23 +59,23 @@ bool ModuleSceneIntro::Start()
 
 	// Draw pinball ------------------------------------------------------------------------
 	int pinball[82] = {
-		620, 172, 620, 1286, 666, 1286,666, 203,655, 161,636, 122,606, 90,565, 66,529, 57,183, 57,
+		622, 171, 620, 1286, 666, 1286,666, 228, 660, 171, 641, 125, 606, 89, 567, 65, 529, 57,183, 57,
 		159, 60,132, 67,103, 83,80, 105,61, 134,53, 170,51, 206,56, 260,69, 304,88, 345,129, 401,24, 487,
 		24, 831,31, 860,41, 882,65, 912,100, 938,155, 966,300, 1021,300, 1047,5, 1047,5, 1455,
-		612, 1455,	612, 1047,	384, 1047,384, 1021,504, 975,566, 931,588, 904,598, 873,598, 172
+		612, 1455,	612, 1047,	384, 1047,384, 1021,504, 975,566, 931,588, 904,598, 873,598, 174
 	};
 	pinballs.add(App->physics->CreateChain(0, 0, pinball, 83, 0.0f, b2_staticBody));
 
 	//Walls
 	int Wall1[32] = {
-		14, 182, 14, 25, 17, 19, 40, 19, 43, 26, 43, 134, 45, 150, 52, 162, 73, 186,
+		14, 182, 14, 25, 17, 19, 39, 21, 43, 27, 43, 134, 45, 150, 52, 162, 73, 186,
 		136, 228, 130, 232, 123, 242, 121, 250, 124, 259, 122, 262, 26, 192
 	};
 	pops_triangle.add(App->physics->CreateChain(48, 653, Wall1, 33, 0.0f, b2_staticBody));
 
 	int Wall2[32] = {
-		41, 13, 46, 9, 66, 9, 70, 13, 70, 173, 26, 217, 24, 216,
-		25, 209, 22, 199, 15, 190, 5, 188, 28, 165, 36, 154, 41, 141, 41, 54, 41, 23
+		41, 15, 45, 11, 66, 9, 70, 13, 70, 173, 26, 217, 24, 216,
+		25, 209, 22, 199, 15, 190, 5, 188, 28, 165, 36, 154, 41, 141, 41, 54, 41, 19
 	};
 	pops_triangle.add(App->physics->CreateChain(494, 694, Wall2, 33, 0.0f, b2_staticBody));
 
@@ -92,26 +92,26 @@ bool ModuleSceneIntro::Start()
 		137, 68, 147, 68, 156, 90, 172, 90, 180, 68, 188, 68, 197, 91, 214, 91,
 		220, 68, 233, 68, 240, 91, 256, 91, 253, 68
 	};
-	pops_triangle.add(App->physics->CreateChain(190, 104, Tri1, 65, 0.8f, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(190, 104, Tri1, 65, 0.9f, b2_staticBody));
 
 	int Tri2[16] = {
 		78, 84, 34, 21, 24, 17, 17, 24,
 		17, 152, 25, 160, 36, 154, 79, 91
 	};
-	pops_triangle.add(App->physics->CreateChain(470, 425, Tri2, 17, 0.8f, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(470, 425, Tri2, 17, 0.9f, b2_staticBody));
 
 	int Tri3[16] = {
 		9, 96, 36, 21, 44, 14, 53, 19,
 		86, 144, 81, 151, 72, 152, 12, 101
 	};
-	pops_triangle.add(App->physics->CreateChain(116, 655, Tri3, 17, 0.8f, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(116, 655, Tri3, 17, 0.9f, b2_staticBody));
 
 	//Square
 	int Sqr[32] = {
 		22, 91, 17, 95, 11, 87, 105, 8, 112, 16, 105, 22, 120, 36, 108, 46,
 		87, 36, 77, 44, 82, 66, 69, 77, 48, 68, 39, 76, 43, 99, 32, 108
 	};
-	pops_square.add(App->physics->CreateChain(24, 391, Sqr, 33, 0.8f, b2_staticBody));
+	pops_square.add(App->physics->CreateChain(24, 391, Sqr, 33, 0.9f, b2_staticBody));
 	
 	//Mini
 	pops_mini.add(App->physics->CreateCircle(42, 1670, 15, 2.0f, b2_staticBody));
