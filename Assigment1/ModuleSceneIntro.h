@@ -53,18 +53,24 @@ public:
 	bool active3 = false;
 	int active_sensors = 0;
 
-	bool active1_circ1 = false;
-	bool active1_circ2 = false;
-	bool active1_circ3 = false;
+	bool active_circ1 = false;
+	bool active_circ2 = false;
+	bool active_circ3 = false;
 
 	bool sensed;
 	bool tp = false;
 
 	int score = 0;
 	int lives = 3;
+
 	int time_now1, time_now2;
 	int start_time1, start_time2;
-	int total_time1, total_time2 = NULL;
+	int total_time1, total_time2;
+
+	int time_now_circ1, time_now_circ2, time_now_circ3;
+	int start_time_circ1, start_time_circ2, start_time_circ3;
+	int total_time_circ1, total_time_circ2, total_time_circ3;
+
 	bool reset_red_sensors = false;
 	bool reset_pops = false;
 	

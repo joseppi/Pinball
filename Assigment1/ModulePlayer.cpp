@@ -177,7 +177,34 @@ void ModulePlayer::setRightFlipper()
 	revolute_joint_right = (b2RevoluteJoint*)App->physics->world->CreateJoint(&revDef);
 }
 
-void ModulePlayer::setSensor(PhysBody* sensor, SDL_Texture* texture, bool active)
+void ModulePlayer::setSensorCirclesRed(PhysBody* sensor, SDL_Texture* texture, bool active, bool activeSensors, bool resetSensor)
+{
+	App->scene_intro->b = sensor;
+
+	if (App->scene_intro->b != NULL)
+	{
+		int x, y;
+		App->scene_intro->b->GetPosition(x, y);
+		if (resetSensor == true)
+		{
+			App->scene_intro->b->body->SetAwake(true);
+			active = false;
+		}
+		if (App->scene_intro->b->body->IsAwake() == false)
+		{
+			App->renderer->Blit(texture, x, y, NULL, 2.0f);
+		}
+		if (active == true && App->scene_intro->b->body->IsAwake() == true && activeSensors < 3)
+		{
+			App->scene_intro->b->body->SetAwake(false);
+			App->audio->PlayFx(App->scene_intro->bouncers_fx);
+			activeSensors++;
+			active = false;
+		}
+	}
+}
+
+void ModulePlayer::setSensorCircles(PhysBody* sensor, SDL_Texture* texture, bool active)
 {
 	App->scene_intro->b = sensor;
 
