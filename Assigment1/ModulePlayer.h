@@ -24,7 +24,6 @@ private:
 	void setSpring();
 	void setLeftFlipper();
 	void setRightFlipper();
-	//void ModulePlayer::OnCollision(PhysBody * body_A, PhysBody * body_B);
 
 public:
 	SDL_Texture* tx_spring;
@@ -44,4 +43,7 @@ private:
 	b2PrismaticJoint* prismatic_joint;
 	b2RevoluteJoint* revolute_joint_left;
 	b2RevoluteJoint* revolute_joint_right;
+
+public:
+	void ModulePlayer::setSensor(PhysBody* sensor, SDL_Texture* texture, bool active);
 };

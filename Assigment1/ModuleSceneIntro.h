@@ -19,6 +19,10 @@ public:
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
 public:
+	PhysBody* b;
+
+	//----------------------------------------------------
+
 	p2List<PhysBody*> circles;
 	p2List<PhysBody*> pinballs;
 	p2List<PhysBody*> walls;

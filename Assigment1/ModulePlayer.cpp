@@ -176,3 +176,9 @@ void ModulePlayer::setRightFlipper()
 
 	revolute_joint_right = (b2RevoluteJoint*)App->physics->world->CreateJoint(&revDef);
 }
+
+void ModulePlayer::setSensor(PhysBody* sensor, SDL_Texture* texture, bool active)
+{
+	App->scene_intro->b = sensor;
+
+}

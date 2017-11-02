@@ -144,13 +144,11 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-
 	p2SString title("Pinball Score: %d  Lives: %d", score, lives); 
 	App->window->SetTitle(title.GetString());
 
 	// All draw functions ------------------------------------------------------
-	p2List_item<PhysBody*>* c = pinballs.getFirst();
-	PhysBody* b;
+	c = pinballs.getFirst();
 
 	SDL_Rect rect;
 
@@ -248,7 +246,7 @@ update_status ModuleSceneIntro::Update()
 	}
 
 	//BOUNCERS (CIRCLES) SENSORS
-	{
+	/*{
 		b = sensor_circ1;
 
 		if (b != NULL)
@@ -265,7 +263,10 @@ update_status ModuleSceneIntro::Update()
 				App->audio->PlayFx(App->scene_intro->bouncers_fx);
 			}
 		}
-	}
+	}*/
+
+	App->player->setSensor(sensor_circ1, texture_sensor_circs, active1_circ1);
+
 	//BOUNCERS (CIRLCES) Delay
 	time_now2 = SDL_GetTicks() - start_time2;
 	if (active1_circ1 == false)
