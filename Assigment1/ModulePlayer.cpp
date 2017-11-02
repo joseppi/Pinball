@@ -7,6 +7,7 @@
 #include "ModuleSceneIntro.h"
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
+#include <ctime>
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -61,6 +62,8 @@ update_status ModulePlayer::Update()
 	{
    		prismatic_joint->EnableMotor(false);
 	}
+	srand(time(NULL));
+	prismatic_joint->SetMaxMotorForce(3050 + rand() % 1000);
 
 	//LEFT FLIPPER
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
@@ -110,6 +113,8 @@ update_status ModulePlayer::Update()
 
 void ModulePlayer::setSpring()
 {
+	srand(time(NULL));
+
 	spring = App->physics->CreateRectangle(644, 745, 41, 100, 0.0f, b2_dynamicBody);
 	spring_pivot = App->physics->CreateRectangle(644, 925, 41, 30, 0.0f, b2_staticBody);
 
@@ -129,7 +134,7 @@ void ModulePlayer::setSpring()
 	PrismDef.lowerTranslation = 0;
 	PrismDef.enableMotor = false;
 	PrismDef.motorSpeed = 50;
-	PrismDef.maxMotorForce = 3750;
+	PrismDef.maxMotorForce = 2750 + rand() % 1000;//3750
 	
 	prismatic_joint = (b2PrismaticJoint*)App->physics->world->CreateJoint(&PrismDef);
 }
