@@ -33,9 +33,6 @@ bool ModuleSceneIntro::Start()
 	circle = App->textures->Load("pinball/Ball.png");
 	texture_sensor = App->textures->Load("pinball/sensor_red.png");
 	texture_sensor_circs = App->textures->Load("pinball/sensor_circs.png");
-
-
-	//bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 	
 	//RED Sensors
 	sensors1 = App->physics->CreateCircleSensor(343, 770, 16, 0); 
@@ -121,11 +118,14 @@ bool ModuleSceneIntro::Start()
 	pops_mini.add(App->physics->CreateCircle(581, 1703, 15, 3.0f, b2_staticBody));
 
 	//Load audio ------------------------------------------------------------------------
-	//App->audio->PlayMusic("Audio/Music_audio.ogg", 1.0f);
+	App->audio->PlayMusic("Audio/Music_audio.ogg", 1.0f);
 
 	bouncers_fx = App->audio->LoadFx("audio/Bumpers_fx.wav");
 	flipper_fx = App->audio->LoadFx("audio/Flipper_fx.wav");
 	spring_fx = App->audio->LoadFx("audio/Spring_fx.wav");
+	live_fx = App->audio->LoadFx("audio/Live_fx.wav");
+	red_sensor_fx = App->audio->LoadFx("audio/Red_Sensor_fx.wav");
+	reset_fx = App->audio->LoadFx("audio/Reset_fx.wav");
 
 	return ret;
 }
@@ -146,7 +146,7 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-	p2SString title("Pinball Score: %d  Lives: %d", score, lives);
+	p2SString title("Pinball | Score: %d, Lives: %d", score, lives);
 	App->window->SetTitle(title.GetString());
 
 	// All draw functions ------------------------------------------------------
@@ -163,10 +163,11 @@ update_status ModuleSceneIntro::Update()
 		c = c->next;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	if (lives == 0 && App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		lives = 3;
 		score = 0;
+		App->audio->PlayFx(App->scene_intro->reset_fx);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)//Game over Screen
 	{
@@ -254,7 +255,7 @@ update_status ModuleSceneIntro::Update()
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
-		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		/*if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
 
 			b2Vec2 position(PIXEL_TO_METERS(643), PIXEL_TO_METERS(795));
@@ -266,7 +267,7 @@ update_status ModuleSceneIntro::Update()
 		{
 			b2Vec2 positionm(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
 			c->data->body->SetTransform(positionm, 0);
-		}
+		}*/
 		App->renderer->Blit(circle, x - 6, y - 6, NULL, 2.0f, c->data->GetRotation());
 		if (tp == true)
 		{
@@ -277,6 +278,7 @@ update_status ModuleSceneIntro::Update()
 			if (lives > 0)
 			{
 				--lives;
+				App->audio->PlayFx(App->scene_intro->live_fx);
 			}
 			tp = false;
 		}

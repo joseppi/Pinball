@@ -242,7 +242,6 @@ update_status ModulePhysics::PostUpdate()
 				// Draw circles ------------------------------------------------
 				case b2Shape::e_circle:
 				{
-
 					b2CircleShape* shape = (b2CircleShape*)f->GetShape();
 					b2Vec2 pos = f->GetBody()->GetPosition();
 					if (pos.y >= 10)
@@ -250,7 +249,6 @@ update_status ModulePhysics::PostUpdate()
 						body_delete = b;
 					}
 					App->renderer->DrawCircle(METERS_TO_PIXELS(pos.x), METERS_TO_PIXELS(pos.y), METERS_TO_PIXELS(shape->m_radius), 255, 128, 0);
-					
 				}
 				break;
 

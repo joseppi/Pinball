@@ -80,12 +80,14 @@ public:
 
 	SDL_Texture* texture_sensor_circs;
 
-	uint bonus_fx;
 	p2Point<int> ray;
 	bool ray_on;
 
 public:
 	uint bouncers_fx;
-	uint spring_fx;
 	uint flipper_fx;
+	uint spring_fx;
+	uint live_fx;
+	uint red_sensor_fx;
+	uint reset_fx;
 };

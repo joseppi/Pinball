@@ -224,7 +224,7 @@ void ModulePlayer::setSensorCirclesRed(PhysBody* sensor, SDL_Texture* texture, b
 		if (active == true && App->scene_intro->b->body->IsAwake() == true && activeSensors < 3)
 		{
 			App->scene_intro->b->body->SetAwake(false);
-			App->audio->PlayFx(App->scene_intro->bouncers_fx);
+			App->audio->PlayFx(App->scene_intro->red_sensor_fx);
 			activeSensors++;
 			active = false;
 		}
