@@ -200,36 +200,52 @@ update_status ModuleSceneIntro::Update()
 	App->player->setSensorCircles(sensor_circ3, texture_sensor_circs, active_circ3);
 
 	//--Delay 1
+	b = sensor_circ1;
 	time_now_circ1 = SDL_GetTicks() - start_time_circ1;
-	if (active_circ1 == false){
-		total_time_circ1 = time_now_circ1 + (Uint32)(250.0f);;
+	if (active_circ1 == false)
+	{
+		total_time_circ1 = time_now_circ1 + (Uint32)(1000.0f);;
 	}
 	else
 	{
 		if (time_now_circ1 > total_time_circ1)
-		{ start_time_circ1 = SDL_GetTicks(); score += 100; active_circ1 = false; b->body->SetAwake(true);}
+		{ 
+			start_time_circ1 = SDL_GetTicks(); 
+			score += 100; active_circ1 = false; 
+			b->body->SetAwake(true);
+		}
 	}
-
+	b = sensor_circ2;
 	//--Delay 2
 	time_now_circ2 = SDL_GetTicks() - start_time_circ2;
-	if (active_circ2 == false) {
-		total_time_circ2 = time_now_circ2 + (Uint32)(250.0f);;
+	if (active_circ2 == false)
+	{
+		total_time_circ2 = time_now_circ2 + (Uint32)(1000.0f);
 	}
 	else
 	{
 		if (time_now_circ2 > total_time_circ2) 
-		{ start_time_circ2 = SDL_GetTicks(); score += 100; active_circ2 = false; b->body->SetAwake(true); }
+		{
+		start_time_circ2 = SDL_GetTicks();
+		score += 100; active_circ2 = false;
+		b->body->SetAwake(true);
+		}
 	}
-
+	b = sensor_circ3;
 	//--Delay 3
 	time_now_circ3 = SDL_GetTicks() - start_time_circ3;
-	if (active_circ3 == false) {
-		total_time_circ3 = time_now_circ3 + (Uint32)(250.0f);;
+	if (active_circ3 == false) 
+	{
+		total_time_circ3 = time_now_circ3 + (Uint32)(1000.0f);
 	}
 	else
 	{
 		if (time_now_circ3 > total_time_circ3) 
-		{ start_time_circ3 = SDL_GetTicks(); score += 100; active_circ3 = false; b->body->SetAwake(true); }
+		{
+		start_time_circ3 = SDL_GetTicks(); 
+		score += 100; active_circ3 = false; 
+		b->body->SetAwake(true); 
+		}
 	}
 
 	c = circles.getFirst();
