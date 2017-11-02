@@ -71,7 +71,7 @@ public:
 	int start_time_circ1, start_time_circ2, start_time_circ3;
 	int total_time_circ1, total_time_circ2, total_time_circ3;
 
-	bool reset_red_sensors = false;
+	bool reset = false;
 	bool reset_pops = false;
 	
 	SDL_Texture* circle;

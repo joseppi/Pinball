@@ -172,16 +172,94 @@ update_status ModuleSceneIntro::Update()
 	{
 		lives = 0;
 	}
+
+
+
 	//RED SENSORS
-	App->player->setSensorCirclesRed(sensors1, texture_sensor, active1, active_sensors, reset_red_sensors);
-	App->player->setSensorCirclesRed(sensors2, texture_sensor, active2, active_sensors, reset_red_sensors);
-	App->player->setSensorCirclesRed(sensors3, texture_sensor, active3, active_sensors, reset_red_sensors);
+	b = sensors1;
+
+	if (b != NULL)
+	{
+		int x, y;
+		b->GetPosition(x, y);
+		if (reset == true)
+		{
+			b->body->SetAwake(true);
+			active1 = false;
+		}
+		if (b->body->IsAwake() == false)
+		{
+			App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+		}
+		if (active1 == true && b->body->IsAwake() == true && active_sensors < 3)
+		{
+			b->body->SetAwake(false);
+			active_sensors++;
+			active1 = false;
+			//App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+		}
+	}
+
+	b = sensors2;
+
+	if (b != NULL)
+	{
+		int x, y;
+
+
+		b->GetPosition(x, y);
+		if (reset == true)
+		{
+			b->body->SetAwake(true);
+			active2 = false;
+		}
+		if (b->body->IsAwake() == false)
+		{
+			App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+		}
+
+		if (active2 == true && b->body->IsAwake() == true && active_sensors < 3)
+		{
+			b->body->SetAwake(false);
+			active_sensors++;
+			active2 = false;
+			//App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+		}
+	}
+
+	b = sensors3;
+
+	if (b != NULL)
+	{
+		int x, y;
+
+		b->GetPosition(x, y);
+		if (reset == true)
+		{
+			b->body->SetAwake(true);
+			active3 = false;
+			reset = false;
+			active_sensors = 0;
+		}
+		if (b->body->IsAwake() == false)
+		{
+			App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+		}
+		if (active3 == true && b->body->IsAwake() == true && active_sensors < 3)
+		{
+			b->body->SetAwake(false);
+			active_sensors++;
+			active3 = false;
+			//App->renderer->Blit(texture_sensor, x, y, NULL, 2.0f);
+		}
+	}
+
 
 	//--Delay
 	time_now1 = SDL_GetTicks() - start_time1;
 	if (active_sensors < 3)
 	{
-		total_time1 = time_now1 + (Uint32)(1000.0f);;
+		total_time1 = time_now1 + (Uint32)(1000.0f);
 	}
 	else
 	{
@@ -189,8 +267,7 @@ update_status ModuleSceneIntro::Update()
 		{
 			start_time1 = SDL_GetTicks();
 			score += 10;
-			active_sensors = 0;
-			reset_red_sensors = true;
+			reset = true;
 		}
 	}
 
@@ -215,8 +292,9 @@ update_status ModuleSceneIntro::Update()
 			b->body->SetAwake(true);
 		}
 	}
-	b = sensor_circ2;
+
 	//--Delay 2
+	b = sensor_circ2;
 	time_now_circ2 = SDL_GetTicks() - start_time_circ2;
 	if (active_circ2 == false)
 	{
@@ -231,8 +309,9 @@ update_status ModuleSceneIntro::Update()
 		b->body->SetAwake(true);
 		}
 	}
-	b = sensor_circ3;
+
 	//--Delay 3
+	b = sensor_circ3;
 	time_now_circ3 = SDL_GetTicks() - start_time_circ3;
 	if (active_circ3 == false) 
 	{
