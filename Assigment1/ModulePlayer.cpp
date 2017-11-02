@@ -99,7 +99,7 @@ update_status ModulePlayer::Update()
 
 	//Blitting spring-------------------------------------------------
 	spring->GetPosition(position.x, position.y);
-	App->renderer->Blit(tx_spring, position.x, position.y - 1, NULL, 1.0f);
+	App->renderer->Blit(tx_spring, position.x - 5, position.y - 14, NULL, 1.0f);
 
 	//Blitting gameover------------------------------------------------
 	if (App->scene_intro->lives == 0)
