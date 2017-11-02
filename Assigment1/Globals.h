@@ -21,13 +21,13 @@ enum update_status
 };
 
 // Configuration -----------
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 768
+#define SCREEN_WIDTH 685
+#define SCREEN_HEIGHT 1024
 #define SCREEN_SIZE 1
 #define WIN_FULLSCREEN false
 #define WIN_RESIZABLE false
 #define WIN_BORDERLESS false
 #define WIN_FULLSCREEN_DESKTOP false
-#define WIN_MAXIMIZED true
+#define WIN_MAXIMIZED false
 #define VSYNC true
 #define TITLE "2D Physics Playground"

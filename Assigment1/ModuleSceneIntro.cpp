@@ -36,26 +36,26 @@ bool ModuleSceneIntro::Start()
 	//bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 	
 	//RED Sensors
-	sensors1 = App->physics->CreateCircleSensor(855, 770, 16, 0); 
+	sensors1 = App->physics->CreateCircleSensor(343, 770, 16, 0); 
 	sensors1->listener = this;
-	sensors2 = App->physics->CreateCircleSensor(855, 813, 16, 0);
+	sensors2 = App->physics->CreateCircleSensor(343, 812, 16, 0);
 	sensors2->listener = this;
-	sensors3 = App->physics->CreateCircleSensor(855, 854, 16, 0);
+	sensors3 = App->physics->CreateCircleSensor(343, 853, 16, 0);
 	sensors3->listener = this;
 
 	//BOUNCERS (CIRCLES) SENSORS
-	sensor_circ1 = App->physics->CreateCircleSensor(724, 295, 45, 0);
+	sensor_circ1 = App->physics->CreateCircleSensor(212, 295, 45, 0);
 	sensor_circ1->listener = this;
-	sensor_circ2 = App->physics->CreateCircleSensor(985, 316, 45, 0);
+	sensor_circ2 = App->physics->CreateCircleSensor(473, 316, 45, 0);
 	sensor_circ2->listener = this;
-	sensor_circ3 = App->physics->CreateCircleSensor(854, 509, 45, 0);
+	sensor_circ3 = App->physics->CreateCircleSensor(342, 509, 45, 0);
 	sensor_circ3->listener = this;
 
-	tp_sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH*0.850, SCREEN_HEIGHT*1.645f, 800, 400);
+	tp_sensor = App->physics->CreateRectangleSensor(310, 1275, 590, 400);
 	tp_sensor->listener = this;
 
 	//Draw Ball
-	circles.add(App->physics->CreateCircle(1155, 745, 16, 0.15f, b2_dynamicBody));
+	circles.add(App->physics->CreateCircle(643, 745, 16, 0.15f, b2_dynamicBody));
 	circles.getLast()->data->listener = this;
 
 	// Draw pinball ------------------------------------------------------------------------
@@ -65,26 +65,26 @@ bool ModuleSceneIntro::Start()
 		24, 831,31, 860,41, 882,65, 912,100, 938,155, 966,300, 1021,300, 1047,5, 1047,5, 1455,
 		612, 1455,	612, 1047,	384, 1047,384, 1021,504, 975,566, 931,588, 904,598, 873,598, 172
 	};
-	pinballs.add(App->physics->CreateChain(SCREEN_WIDTH / 2, 0, pinball, 83, 0.0f, b2_staticBody));
+	pinballs.add(App->physics->CreateChain(0, 0, pinball, 83, 0.0f, b2_staticBody));
 
 	//Walls
 	int Wall1[32] = {
 		14, 182, 14, 25, 17, 19, 40, 19, 43, 26, 43, 134, 45, 150, 52, 162, 73, 186,
 		136, 228, 130, 232, 123, 242, 121, 250, 124, 259, 122, 262, 26, 192
 	};
-	pops_triangle.add(App->physics->CreateChain(560, 653, Wall1, 33, 0.0f, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(48, 653, Wall1, 33, 0.0f, b2_staticBody));
 
 	int Wall2[32] = {
 		41, 13, 46, 9, 66, 9, 70, 13, 70, 173, 26, 217, 24, 216,
 		25, 209, 22, 199, 15, 190, 5, 188, 28, 165, 36, 154, 41, 141, 41, 54, 41, 23
 	};
-	pops_triangle.add(App->physics->CreateChain(1006, 694, Wall2, 33, 0.0f, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(494, 694, Wall2, 33, 0.0f, b2_staticBody));
 
 	//Bumpers ------------------------------------------------------------------------------
 	//Cricles
-	pops_circular.add(App->physics->CreateCircle(724, 295, 45, 0.5f, b2_staticBody));
-	pops_circular.add(App->physics->CreateCircle(985, 316, 45, 0.5f, b2_staticBody));
-	pops_circular.add(App->physics->CreateCircle(854, 509, 45, 0.5f, b2_staticBody));
+	pops_circular.add(App->physics->CreateCircle(212, 295, 45, 0.5f, b2_staticBody));
+	pops_circular.add(App->physics->CreateCircle(473, 316, 45, 0.5f, b2_staticBody));
+	pops_circular.add(App->physics->CreateCircle(342, 509, 45, 0.5f, b2_staticBody));
 
 	//Triangles
 	int Tri1[64] = {
@@ -93,33 +93,33 @@ bool ModuleSceneIntro::Start()
 		137, 68, 147, 68, 156, 90, 172, 90, 180, 68, 188, 68, 197, 91, 214, 91,
 		220, 68, 233, 68, 240, 91, 256, 91, 253, 68
 	};
-	pops_triangle.add(App->physics->CreateChain(702, 104, Tri1, 65, 0.8f, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(190, 104, Tri1, 65, 0.8f, b2_staticBody));
 
 	int Tri2[16] = {
 		78, 84, 34, 21, 24, 17, 17, 24,
 		17, 152, 25, 160, 36, 154, 79, 91
 	};
-	pops_triangle.add(App->physics->CreateChain(985, 425, Tri2, 17, 0.8f, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(470, 425, Tri2, 17, 0.8f, b2_staticBody));
 
 	int Tri3[16] = {
 		9, 96, 36, 21, 44, 14, 53, 19,
 		86, 144, 81, 151, 72, 152, 12, 101
 	};
-	pops_triangle.add(App->physics->CreateChain(628, 655, Tri3, 17, 0.8f, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(116, 655, Tri3, 17, 0.8f, b2_staticBody));
 
 	//Square
 	int Sqr[32] = {
 		22, 91, 17, 95, 11, 87, 105, 8, 112, 16, 105, 22, 120, 36, 108, 46,
 		87, 36, 77, 44, 82, 66, 69, 77, 48, 68, 39, 76, 43, 99, 32, 108
 	};
-	pops_square.add(App->physics->CreateChain(536, 390, Sqr, 33, 0.8f, b2_staticBody));
+	pops_square.add(App->physics->CreateChain(24, 391, Sqr, 33, 0.8f, b2_staticBody));
 	
 	//Mini
-	pops_mini.add(App->physics->CreateCircle(554, 1670, 15, 3.0f, b2_staticBody));
-	pops_mini.add(App->physics->CreateCircle(1093, 1703, 15, 3.0f, b2_staticBody));
+	pops_mini.add(App->physics->CreateCircle(42, 1670, 15, 3.0f, b2_staticBody));
+	pops_mini.add(App->physics->CreateCircle(581, 1703, 15, 3.0f, b2_staticBody));
 
 	//Load audio ------------------------------------------------------------------------
-	App->audio->PlayMusic("Audio/Music_audio.ogg", 1.0f);
+	//App->audio->PlayMusic("Audio/Music_audio.ogg", 1.0f);
 
 	bouncers_fx = App->audio->LoadFx("audio/Bumpers_fx.wav");
 	flipper_fx = App->audio->LoadFx("audio/Flipper_fx.wav");
@@ -298,7 +298,7 @@ update_status ModuleSceneIntro::Update()
 		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
 			
-			b2Vec2 position(PIXEL_TO_METERS(1155), PIXEL_TO_METERS(795));
+			b2Vec2 position(PIXEL_TO_METERS(643), PIXEL_TO_METERS(795));
 			c->data->body->SetLinearVelocity({ 0,0 });
 			c->data->body->SetAngularVelocity(0);
 			c->data->body->SetTransform(position, 0);
@@ -311,7 +311,7 @@ update_status ModuleSceneIntro::Update()
 		App->renderer->Blit(circle, x - 6, y - 6, NULL, 2.0f, c->data->GetRotation());
 		if (tp == true)
 		{
-			b2Vec2 position(PIXEL_TO_METERS(1155), PIXEL_TO_METERS(795));
+			b2Vec2 position(PIXEL_TO_METERS(643), PIXEL_TO_METERS(795));
 			c->data->body->SetLinearVelocity({ 0,0 });
 			c->data->body->SetAngularVelocity(0);
 			c->data->body->SetTransform(position, 0);
