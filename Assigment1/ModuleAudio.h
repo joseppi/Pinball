@@ -25,10 +25,16 @@ public:
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
+	bool RiseVolume();
+
+	bool LowerVolume();
+
+	bool MuteVolume();
 private:
 
 	Mix_Music*			music;
 	p2List<Mix_Chunk*>	fx;
+	uint volume = 128;
 };
 
 #endif // __ModuleAudio_H__

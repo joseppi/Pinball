@@ -10,8 +10,6 @@
 #include "ModulePlayer.h"
 #include "ModuleWindow.h"
 
-
-
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	circle = structure = NULL;
@@ -121,7 +119,7 @@ bool ModuleSceneIntro::Start()
 	pops_mini.add(App->physics->CreateCircle(1093, 1703, 15, 3.0f, b2_staticBody));
 
 	//Load audio ------------------------------------------------------------------------
-	//App->audio->PlayMusic("Audio/Music_audio.ogg", 1.0f);
+	App->audio->PlayMusic("Audio/Music_audio.ogg", 1.0f);
 
 	bouncers_fx = App->audio->LoadFx("audio/Bumpers_fx.wav");
 	flipper_fx = App->audio->LoadFx("audio/Flipper_fx.wav");
@@ -324,6 +322,15 @@ update_status ModuleSceneIntro::Update()
 		}
 		c = c->next;
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN)
+		App->audio->RiseVolume();
+
+	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN)
+		App->audio->LowerVolume();
+
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+		App->audio->MuteVolume();
 
 	return UPDATE_CONTINUE;
 }

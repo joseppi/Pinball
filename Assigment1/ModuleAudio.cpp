@@ -166,3 +166,54 @@ bool ModuleAudio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+
+bool ModuleAudio::RiseVolume()
+{
+	bool ret = false;
+
+	if (volume < 128)
+	{
+		LOG("Volume risen");
+		volume += 16;
+		Mix_VolumeMusic(volume);
+		ret = true;
+	}
+	else
+		LOG("MAX Volume reached");
+
+	return ret;
+}
+
+bool ModuleAudio::LowerVolume()
+{
+	bool ret = false;
+
+	if (volume >= 16)
+	{
+		LOG("Volume lowered");
+		volume -= 16;
+		Mix_VolumeMusic(volume);
+		ret = true;
+	}
+	else
+		LOG("MIN Volume reached");
+
+	return ret;
+}
+
+bool ModuleAudio::MuteVolume()
+{
+	if (volume > 0)
+	{
+		volume = 0;
+		LOG("Volume Muted");
+	}
+	else
+	{
+		volume = 128;
+		LOG("Volume UnMuted");
+	}
+	Mix_VolumeMusic(volume);
+
+	return true;
+}
