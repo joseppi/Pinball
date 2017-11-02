@@ -1,5 +1,5 @@
 # Pinball
-This small project consists of making a 2D pinball game based on the box2D library. The game consists of making the maximum score until you lose the three lives.
+This small project is based around a 2D pinball game based on the box2D library. The game consists of in making the maximum score until you lose your three lives.
 
 On the [repository link](https://github.com/joseppi/Pinball) is posible to check for code and the release.
 
@@ -9,7 +9,7 @@ Decompress the .zip file in any directory and execute the executable inside the 
 ## Functionalities
 - The spring does impulse the ball for starting a new game.
 - Flippers do move in limited angles to boost away from the ball.
-- Bouncers (circular and triangular shapes) rebound the ball when hitting them. (The are two mini ones of them when actioning the flippers; used for blocking the exit).
+- Bouncers (circular and triangular shapes) rebound the ball when hitting them. (The are two mini ones of them when actioning the       flippers; used for blocking the exit).
 - Sensors make sure that when a bouncer is touched these change appearance.
 - Score and lives mechanics are used when hitting the sensors and losing lives when the ball falls at the bottom of the pinball.
 - Sound FX play at each mechanism (spring, flipper) is launched and when colliding too (bouncers), apart from the UI interaction. 
@@ -18,6 +18,7 @@ Decompress the .zip file in any directory and execute the executable inside the 
 - Left arrow: Activate left flipper and it's assigned mini bouncer (located behind the first wall).
 - Right arrow: Activate right flipper and it's assigned mini bouncer (located behind the second wall).
 - Spacebar: Apply force to the spring when starting a new game.
+- R: Restart score and lives.
 
 ### Special features
 - F1: Show logical 2D physics (shapes, figures and joints).
