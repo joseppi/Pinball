@@ -114,8 +114,8 @@ bool ModuleSceneIntro::Start()
 	pops_square.add(App->physics->CreateChain(24, 391, Sqr, 33, 0.8f, b2_staticBody));
 	
 	//Mini
-	pops_mini.add(App->physics->CreateCircle(42, 1670, 15, 3.0f, b2_staticBody));
-	pops_mini.add(App->physics->CreateCircle(581, 1703, 15, 3.0f, b2_staticBody));
+	pops_mini.add(App->physics->CreateCircle(42, 1670, 15, 2.0f, b2_staticBody));
+	pops_mini.add(App->physics->CreateCircle(581, 1703, 15, 2.0f, b2_staticBody));
 
 	//Load audio ------------------------------------------------------------------------
 	App->audio->PlayMusic("Audio/Music_audio.ogg", 1.0f);
@@ -163,7 +163,7 @@ update_status ModuleSceneIntro::Update()
 		c = c->next;
 	}
 
-	if (lives == 0 && App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	if (lives == 0 && App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
 		lives = 3;
 		score = 0;
