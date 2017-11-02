@@ -33,6 +33,8 @@ bool ModuleSceneIntro::Start()
 	circle = App->textures->Load("pinball/Ball.png");
 	texture_sensor = App->textures->Load("pinball/sensor_red.png");
 	texture_sensor_circs = App->textures->Load("pinball/sensor_circs.png");
+
+
 	//bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 	
 	//RED Sensors
@@ -160,7 +162,15 @@ update_status ModuleSceneIntro::Update()
 		App->renderer->Blit(structure, x, y, NULL, 1.0f, c->data->GetRotation());
 		c = c->next;
 	}
-
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	{
+		lives = 3;
+		score = 0;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)//Game over Screen
+	{
+		lives = 0;
+	}
 	//RED SENSORS
 	{
 		b = sensors1;
@@ -239,11 +249,7 @@ update_status ModuleSceneIntro::Update()
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-	{
-		//insta lose
-		lives = 0;
-	}
+
 
 	//BOUNCERS (CIRCLES) SENSORS
 	/*{
@@ -335,7 +341,6 @@ update_status ModuleSceneIntro::Update()
 		}
 		c = c->next;
 	}
-
 	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN)
 		App->audio->RiseVolume();
 
@@ -347,6 +352,7 @@ update_status ModuleSceneIntro::Update()
 
 	return UPDATE_CONTINUE;
 }
+
 
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
