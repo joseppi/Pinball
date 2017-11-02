@@ -57,10 +57,11 @@ public:
 
 	int score = 0;
 	int lives = 3;
-	int time_now;
-	int start_time;
-	int total_time = NULL;
-	bool reset = false;
+	int time_now1, time_now2;
+	int start_time1, start_time2;
+	int total_time1, total_time2 = NULL;
+	bool reset_red_sensors = false;
+	bool reset_pops = false;
 	
 	SDL_Texture* circle;
 	SDL_Texture* structure;
