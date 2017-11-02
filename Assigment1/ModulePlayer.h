@@ -30,6 +30,7 @@ public:
 
 	SDL_Texture* tx_flipper_left;
 	SDL_Texture* tx_flipper_right;
+	SDL_Texture* game_over;
 
 private:
 	PhysBody* spring;

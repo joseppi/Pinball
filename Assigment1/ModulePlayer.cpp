@@ -23,6 +23,7 @@ bool ModulePlayer::Start()
 	LOG("Loading player");
 
 	tx_spring = App->textures->Load("pinball/Spring.png");
+	game_over = App->textures->Load("pinball/game_over.png");
 
 	tx_flipper_left = App->textures->Load("pinball/left_Flipper.png");
 	tx_flipper_right = App->textures->Load("pinball/right_Flipper.png");
@@ -96,6 +97,14 @@ update_status ModulePlayer::Update()
 	//Blitting spring-------------------------------------------------
 	spring->GetPosition(position.x, position.y);
 	App->renderer->Blit(tx_spring, position.x, position.y - 1, NULL, 1.0f);
+
+	//Blitting gameover------------------------------------------------
+	if (App->scene_intro->lives == 0)
+	{
+		App->renderer->Blit(game_over, 0, 0, NULL, 1.0f);
+	}
+	
+
 	return UPDATE_CONTINUE;
 }
 

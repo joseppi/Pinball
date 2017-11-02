@@ -63,9 +63,9 @@ public:
 	int score = 0;
 	int lives = 3;
 
-	int time_now1, time_now2;
-	int start_time1, start_time2;
-	int total_time1, total_time2;
+	int time_now1, time_now2 = NULL;
+	int start_time1, start_time2 = NULL;
+	int total_time1, total_time2 = NULL;
 
 	int time_now_circ1, time_now_circ2, time_now_circ3;
 	int start_time_circ1, start_time_circ2, start_time_circ3;
