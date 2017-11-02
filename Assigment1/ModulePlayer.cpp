@@ -29,6 +29,8 @@ bool ModulePlayer::Start()
 	tx_flipper_left = App->textures->Load("pinball/left_Flipper.png");
 	tx_flipper_right = App->textures->Load("pinball/right_Flipper.png");
 
+	tx_mini_bouncer = App->textures->Load("pinball/sensor_mini_bouncer.png");
+
 	setSpring();
 	setLeftFlipper();
 	setRightFlipper();
@@ -44,6 +46,8 @@ bool ModulePlayer::CleanUp()
 
 	App->textures->Unload(tx_flipper_left);
 	App->textures->Unload(tx_flipper_left);
+
+	App->textures->Unload(tx_mini_bouncer);
 
 	return true;
 }
@@ -100,6 +104,18 @@ update_status ModulePlayer::Update()
 	//Blitting spring-------------------------------------------------
 	spring->GetPosition(position.x, position.y);
 	App->renderer->Blit(tx_spring, position.x, position.y - 1, NULL, 1.0f);
+
+	//Blitting miniBumper-------------------------------------------------
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	{
+		App->scene_intro->pops_mini.getFirst()->data->GetPosition(position.x, position.y);
+		App->renderer->Blit(tx_mini_bouncer, position.x + 1, position.y - 2);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	{
+		App->scene_intro->pops_mini.getLast()->data->GetPosition(position.x, position.y);
+		App->renderer->Blit(tx_mini_bouncer, position.x, position.y - 2);
+	}
 
 	//Blitting gameover------------------------------------------------
 	if (App->scene_intro->lives == 0)
