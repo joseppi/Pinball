@@ -19,14 +19,16 @@ Decompress the .zip file in any directory and execute the executable inside the 
 - Right arrow: Activate right flipper and it's assigned mini bouncer (located behind the second wall).
 - Spacebar: Apply force to the spring when starting a new game.
 - R: Restart score and lives.
+- M: Mute the music.
+- +/-: Increase, decrease volume.
 
 ### Special features
 - F1: Show logical 2D physics (shapes, figures and joints).
 
 ## Credits
 - Vladimir Agache ([Github](https://github.com/VladimirA97))
-- Josep Pi ([Github] (https://github.com/joseppi))
-- Albert Mas ([Github] (https://github.com/albertmas))
+- Josep Pi ([Github](https://github.com/joseppi))
+- Albert Mas ([Github](https://github.com/albertmas))
 
 ## License
 Copyright (c) [2017] [Vladimir Agache, Josep Pi, Albert Mas]
