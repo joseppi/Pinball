@@ -44,7 +44,7 @@ bool ModuleSceneIntro::Start()
 	sensors3->listener = this;
 
 	//BOUNCERS (CIRCLES) SENSORS
-	sensor_circ1 = App->physics->CreateCircleSensor(724, 295, 45, 0);
+	sensor_circ1 = App->physics->CreateCircleSensor(724, 295, 55, 0);
 	sensor_circ1->listener = this;
 	sensor_circ2 = App->physics->CreateCircleSensor(985, 316, 45, 0);
 	sensor_circ2->listener = this;
@@ -171,7 +171,7 @@ update_status ModuleSceneIntro::Update()
 		{
 			int x, y;
 			b->GetPosition(x, y);
-			if (reset == true)
+			if (reset_red_sensors == true)
 			{
 				b->body->SetAwake(true);
 				active1 = false;
@@ -196,7 +196,7 @@ update_status ModuleSceneIntro::Update()
 			int x, y;
 
 			b->GetPosition(x, y);
-			if (reset == true)
+			if (reset_red_sensors == true)
 			{
 				b->body->SetAwake(true);
 				active2 = false;
@@ -221,11 +221,11 @@ update_status ModuleSceneIntro::Update()
 			int x, y;
 
 			b->GetPosition(x, y);
-			if (reset == true)
+			if (reset_red_sensors == true)
 			{
 				b->body->SetAwake(true);
 				active3 = false;
-				reset = false;
+				reset_red_sensors = false;
 			}
 			if (b->body->IsAwake() == false)
 			{
@@ -241,6 +241,11 @@ update_status ModuleSceneIntro::Update()
 		}
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+	{
+		//insta lose
+		lives = 0;
+	}
 	//BOUNCERS (CIRCLES) SENSORS
 	{
 		b = sensor_circ1;
@@ -249,11 +254,6 @@ update_status ModuleSceneIntro::Update()
 		{
 			int x, y;
 			b->GetPosition(x, y);
-			if (reset == true)
-			{
-				b->body->SetAwake(true);
-				active1_circ1 = false;
-			}
 			if (b->body->IsAwake() == false)
 			{
 				App->renderer->Blit(texture_sensor_circs, x, y, NULL, 2.0f);
@@ -262,30 +262,40 @@ update_status ModuleSceneIntro::Update()
 			{
 				b->body->SetAwake(false);
 				App->audio->PlayFx(App->scene_intro->bouncers_fx);
-				
-				active1_circ1 = false;
 			}
 		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+	//pop delay
+	time_now2 = SDL_GetTicks() - start_time2;
+	if (active1_circ1 == false)
 	{
-		//insta lose
-		lives = 0;
-	}
-
-	time_now = SDL_GetTicks() - start_time;
-	if (active_sensors < 3)
-	{
-		total_time = time_now + (Uint32)(1000.0f);;
+		total_time2 = time_now2 + (Uint32)(1000.0f);;
 	}
 	else
 	{
-		if (time_now > total_time)
+		if (time_now2 > total_time2)
 		{
-			start_time = SDL_GetTicks();
+			start_time2 = SDL_GetTicks();
+			score += 10;
+			active1_circ1 = false;
+			b->body->SetAwake(true);
+		}
+	}
+
+	//red sensors add points delay
+	time_now1 = SDL_GetTicks() - start_time1;
+	if (active_sensors < 3)
+	{
+		total_time1 = time_now1 + (Uint32)(1000.0f);;
+	}
+	else
+	{
+		if (time_now1 > total_time1)
+		{
+			start_time1 = SDL_GetTicks();
 			score += 10;
 			active_sensors = 0;
-			reset = true;
+			reset_red_sensors = true;
 		}
 	}
 
@@ -358,12 +368,12 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	}
 
 	//BOUNCERS (CIRCLES) SENSORS
+	
+	if (bodyA == sensor_circ1)
 	{
-		if (bodyA == sensor_circ1)
-		{
-			active1_circ1 = true;
-		}
+		active1_circ1 = true;
 	}
+	
 
 	if (bodyA == tp_sensor)
 	{
