@@ -60,16 +60,16 @@ bool ModuleSceneIntro::Start()
 
 	//Walls
 	int Wall1[32] = {
-		14, 267, 14, 30, 16, 24, 41, 24, 44, 30, 44, 234, 50, 252, 63, 267,
-		79, 283, 136, 321, 129, 324, 124, 333, 121, 344, 125, 351, 122, 355, 14, 276
+		14, 182, 14, 25, 17, 19, 40, 19, 43, 26, 43, 134, 45, 150, 52, 162, 73, 186,
+		136, 228, 130, 232, 123, 242, 121, 250, 124, 259, 122, 262, 26, 192
 	};
-	pops_triangle.add(App->physics->CreateChain(559, 560, Wall1, 33, 0.0f, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(560, 653, Wall1, 33, 0.0f, b2_staticBody));
 
 	int Wall2[32] = {
-		41, 16, 45, 13, 66, 13, 70, 17, 70, 237, 27, 280, 24, 281, 25, 270,
-		21, 259, 15, 254, 6, 252, 27, 231, 35, 221, 41, 207, 41, 133, 41, 21
+		41, 13, 46, 9, 66, 9, 70, 13, 70, 173, 26, 217, 24, 216,
+		25, 209, 22, 199, 15, 190, 5, 188, 28, 165, 36, 154, 41, 141, 41, 54, 41, 23
 	};
-	pops_triangle.add(App->physics->CreateChain(1006, 630, Wall2, 33, 0.0f, b2_staticBody));
+	pops_triangle.add(App->physics->CreateChain(1006, 694, Wall2, 33, 0.0f, b2_staticBody));
 
 	//Bumpers ------------------------------------------------------------------------------
 	//Cricles
@@ -110,7 +110,7 @@ bool ModuleSceneIntro::Start()
 	pops_mini.add(App->physics->CreateCircle(1093, 1703, 15, 3.0f, b2_staticBody));
 
 	//Load audio ------------------------------------------------------------------------
-	App->audio->PlayMusic("Audio/Music_audio.ogg", 1.0f);
+	//App->audio->PlayMusic("Audio/Music_audio.ogg", 1.0f);
 
 	bouncers_fx = App->audio->LoadFx("audio/Bumpers_fx.wav");
 	flipper_fx = App->audio->LoadFx("audio/Flipper_fx.wav");
