@@ -56,6 +56,7 @@ public:
 	bool tp = false;
 
 	int score = 0;
+	int lives = 3;
 	int time_now;
 	int start_time;
 	int total_time = NULL;

@@ -9,6 +9,7 @@
 #include "ModulePhysics.h"
 #include "ModulePlayer.h"
 #include "ModuleWindow.h"
+#include "p2SString.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -31,7 +32,6 @@ bool ModuleSceneIntro::Start()
 	structure = App->textures->Load("pinball/Pinball_No_Margins.png");
 	circle = App->textures->Load("pinball/Ball.png");
 	texture_sensor = App->textures->Load("pinball/sensor_red.png");
-
 	texture_sensor_circs = App->textures->Load("pinball/sensor_circs.png");
 	//bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 	
@@ -144,13 +144,9 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-	char sscore[64] = "hihi";
-	char lives[4] = "1";
-	char Title[64] = "Score: ";
-	sprintf_s(Title, "%d ", score);
-	//strcat_s(Title,score);
 
-	App->window->SetTitle(Title);
+	p2SString title("Pinball Score: %d  Lives: %d", score, lives); 
+	App->window->SetTitle(title.GetString());
 
 	// All draw functions ------------------------------------------------------
 	p2List_item<PhysBody*>* c = pinballs.getFirst();
@@ -274,6 +270,7 @@ update_status ModuleSceneIntro::Update()
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 	{
 		//insta lose
+		lives = 0;
 	}
 
 	time_now = SDL_GetTicks() - start_time;
@@ -318,6 +315,10 @@ update_status ModuleSceneIntro::Update()
 			c->data->body->SetLinearVelocity({ 0,0 });
 			c->data->body->SetAngularVelocity(0);
 			c->data->body->SetTransform(position, 0);
+			if (lives > 0)
+			{
+				--lives;
+			}
 			tp = false;
 		}
 		c = c->next;
