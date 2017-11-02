@@ -27,7 +27,7 @@ private:
 
 public:
 	SDL_Texture* tx_spring;
-
+	SDL_Texture* tx_mini_bouncer;
 	SDL_Texture* tx_flipper_left;
 	SDL_Texture* tx_flipper_right;
 	SDL_Texture* game_over;
@@ -46,8 +46,5 @@ private:
 	b2RevoluteJoint* revolute_joint_right;
 
 public:
-	void ModulePlayer::setSensorCirclesRed(PhysBody* sensor, SDL_Texture* texture, bool active, int *activeSensors, bool *resetSensor);
 	void ModulePlayer::setSensorCircles(PhysBody* sensor, SDL_Texture* texture, bool active);
-
-
 };
